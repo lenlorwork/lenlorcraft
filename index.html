@@ -1493,25 +1493,28 @@ body {
   .proj-detail-sub   { font-size: 12px; }
   .proj-divider      { width: auto; max-width: calc(100% - 16px); }
 
-  /* Character cards on mobile: 8 cards wrap to 4 per row (2 visual rows per logical row) — keeps cards readable */
+  /* Character cards on mobile: 8 cards wrap to 4 per row (2 visual rows per logical row) */
   .char-section {
-    padding: 0;
+    padding: 0 4px;
     overflow: visible;
+    align-items: stretch;
   }
   .char-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 4px 8px;
-    gap: 6px 4px;
+    padding: 4px 4px;
+    gap: 6px 5px;
     overflow: visible;
+    width: 100%;
+    box-sizing: border-box;
   }
   .c-card {
-    width: calc((100% - 12px) / 4);
-    max-width: 85px;
+    flex: 0 0 calc((100% - 15px) / 4);
+    max-width: 88px;
     height: auto;
     aspect-ratio: 88 / 158;
-    flex: 0 0 auto;
+    min-width: 0;
   }
 
   /* Pagination */
