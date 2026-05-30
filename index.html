@@ -510,6 +510,13 @@ body {
   color: var(--orange);
   font-size: 14px;
 }
+@keyframes mpPulse {
+  0%, 100% { box-shadow: 0 0 0 0    rgba(255,137,82,.6); }
+  50%      { box-shadow: 0 0 0 12px rgba(255,137,82,0);  }
+}
+.mp-btn-play.pulse {
+  animation: mpPulse 1.4s ease-in-out infinite;
+}
 .mp-volume {
   display: flex;
   align-items: center;
@@ -1563,7 +1570,7 @@ body {
     <button class="mp-btn" onclick="prevTrack()" aria-label="previous track" title="Previous">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg>
     </button>
-    <button class="mp-btn mp-btn-play" id="mp-play" onclick="togglePlay()" aria-label="play/pause" title="Play / Pause">
+    <button class="mp-btn mp-btn-play pulse" id="mp-play" onclick="togglePlay()" aria-label="play/pause" title="Play / Pause">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
     </button>
     <button class="mp-btn" onclick="nextTrack()" aria-label="next track" title="Next">
@@ -2283,7 +2290,10 @@ function toggleMute() {
 
   volSlider.addEventListener('input', e => applyVolume(e.target.value));
 
-  audio.addEventListener('play',  () => { playBtn.innerHTML = SVG_PAUSE; });
+  audio.addEventListener('play',  () => {
+    playBtn.innerHTML = SVG_PAUSE;
+    playBtn.classList.remove('pulse');
+  });
   audio.addEventListener('pause', () => { playBtn.innerHTML = SVG_PLAY; });
   audio.addEventListener('ended', () => { loadTrack(trackIdx + 1, true); });
 
