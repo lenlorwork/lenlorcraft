@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output (Vite)
+dist/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.vscode/
+.idea/
+
+# Local dev artifacts
+logo_check_magenta.png
+web.ai
+
+# Env files (if added later)
+.env
+.env.*

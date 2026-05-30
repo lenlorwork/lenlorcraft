@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENLORCRAFT</title>
+
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;900&family=Bai+Jamjuree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================
+   RESET & ROOT
+============================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --orange:   #FF8952;
+  --orange2:  #D96B3D;
+  --black:    #000000;
+  --dark:     #0d0905;
+  --dark2:    #181008;
+  --border:   #2c1c0a;
+  --cream:    #ecdfc8;
+  --muted:    #806050;
+  --EN: 'Gabarito', sans-serif;
+  --TH: 'Bai Jamjuree', sans-serif;
+}
+
+html, body { height:100%; }
+
+body {
+  background: var(--dark);
+  color: var(--cream);
+  font-family: var(--EN);
+  overflow-x: hidden;
+}
+
+/* ============================
+   NAV / HEADER
+============================ */
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  height: 54px;
+  background: #000000;
+  border-bottom: 1px solid #1a1008;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 0 28px;
+}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-family: var(--EN);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  transition: color .2s;
+}
+.nav-btn:hover { color: var(--orange); }
+
+.nav-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 6px;
+}
+.nav-social a {
+  color: var(--orange);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s, transform .2s;
+}
+.nav-social a:hover { opacity: .75; transform: translateY(-1px); }
+.nav-social svg { display: block; width: 18px; height: 18px; fill: currentColor; }
+.nav-social a.yt svg { width: 22px; height: 22px; }
+.nav-social a.dc svg { width: 20px; height: 20px; }
+
+/* Mobile hamburger button (hidden on desktop) */
+.hamburger-btn {
+  display: none;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--orange);
+  cursor: pointer;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.hamburger-btn span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--orange);
+  transition: transform .25s, opacity .25s;
+}
+.hamburger-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  background: #000;
+  border-top: 1px solid var(--orange);
+  border-bottom: 1px solid var(--orange);
+  z-index: 899;
+  max-height: calc(100vh - 54px);
+  overflow-y: auto;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu button {
+  display: block;
+  width: 100%;
+  padding: 16px 22px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--cream);
+  font-family: var(--EN);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.mobile-menu button:hover,
+.mobile-menu button:active {
+  background: #1a1108;
+  color: var(--orange);
+}
+
+.nav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-logo img {
+  height: 46px;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.nav-logo img:hover { opacity: .8; }
+
+/* ============================
+   PAGE SWITCHER
+============================ */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ============================
+   INLINE PROJECT EXPAND
+   Slides down beneath the projects row when a project card is clicked.
+============================ */
+.proj-expand {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .65s cubic-bezier(.2,.7,.2,1);
+  background: radial-gradient(ellipse at 50% 0%, #2a1808 0%, #100a04 60%, #060402 100%);
+}
+.proj-expand.open {
+  max-height: 1600px;
+}
+.proj-expand-inner {
+  position: relative;
+  padding: 40px 24px 56px;
+  opacity: 0;
+}
+.proj-expand.open .proj-expand-inner { opacity: 1; transition: opacity .35s ease .1s; }
+
+@keyframes innerSlideIn {
+  from { opacity: 0; transform: translateY(-26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.proj-expand-inner.slide-in {
+  animation: innerSlideIn .55s cubic-bezier(.2,.7,.2,1);
+}
+
+.proj-expand-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  width: 34px; height: 34px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--EN);
+  transition: background .2s, color .2s, transform .2s;
+  z-index: 10;
+}
+.proj-expand-close:hover {
+  background: var(--orange);
+  color: var(--dark);
+  transform: rotate(90deg);
+}
+
+.proj-card.active {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1px var(--orange), 0 10px 24px -10px rgba(200,102,42,.6);
+  transform: translateY(-8px);
+}
+
+/* ============================
+   HOME — HERO
+   정확히 reference와 같이: 순수한 오렌지 배경
+============================ */
+#hero {
+  height: calc(100vh - 54px);
+  margin-top: 54px;
+  background: var(--orange);
+  position: relative;
+  overflow: hidden;
+}
+/* Optional: drop in a real bg image later with class .has-bg */
+#hero.has-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+}
+#hero img.hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================
+   HOME — PROJECTS SECTION
+============================ */
+#projects-section {
+  background: var(--dark);
+  padding: 64px 40px 48px;
+}
+
+.section-eyebrow {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .4em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.projects-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.proj-card {
+  aspect-ratio: 1/1;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, transform .35s;
+}
+.proj-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-8px);
+}
+
+.proj-card-fill {
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, #2a1508 0%, #0d0905 100%);
+}
+.proj-card-logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  transition: transform .45s ease;
+}
+.proj-card:hover .proj-card-logo {
+  transform: scale(1.06);
+}
+.proj-card-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 45%, transparent 70%);
+  z-index: 2;
+}
+.proj-card-body { z-index: 3; }
+.proj-card-arrow { z-index: 4; }
+.proj-card-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 14px 12px;
+}
+.proj-card-num {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .35em;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+.proj-card-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  line-height: 1.25;
+}
+.proj-card-arrow {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 26px; height: 26px;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transform: translate(6px,-6px);
+  transition: opacity .25s, transform .25s;
+}
+.proj-card:hover .proj-card-arrow { opacity: 1; transform: translate(0,0); }
+
+/* ============================
+   HOME — TEAM SECTION
+============================ */
+#team-section {
+  background: var(--dark2);
+  padding: 64px 40px 64px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.team-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-decoration: none;
+  color: var(--cream);
+  transition: border-color .25s, transform .25s, background .25s;
+}
+.team-card:hover {
+  border-color: var(--orange);
+  background: #1a1108;
+  transform: translateY(-3px);
+}
+.team-card-img {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+}
+.team-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.team-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.team-card-channel {
+  font-family: var(--EN);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.team-card:hover .team-card-channel { color: var(--orange); }
+.team-card-meta {
+  font-family: var(--TH);
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.35;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+}
+.team-card-meta .dot { color: var(--orange); }
+.team-card-meta .char { color: var(--cream); }
+
+/* ============================
+   MUSIC PLAYER (fixed bottom-right, above now-on-air bar)
+============================ */
+#music-player {
+  position: fixed;
+  bottom: 72px;
+  right: 20px;
+  z-index: 800;
+  width: 280px;
+  padding: 14px 18px 14px;
+  background: rgba(13,9,5,.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--orange);
+  color: var(--cream);
+  font-family: var(--EN);
+  box-shadow: 0 10px 28px rgba(0,0,0,.55);
+  transition: opacity .25s, transform .25s;
+}
+#music-player.hidden { opacity: 0; pointer-events: none; transform: translateY(8px); }
+
+.mp-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .35em;
+  color: var(--orange);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.mp-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  line-height: 1.3;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mp-artist {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: .22em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.mp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.mp-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--cream);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-family: var(--EN);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, color .2s, border-color .2s;
+  padding: 0;
+  line-height: 1;
+}
+.mp-btn:hover {
+  background: var(--orange);
+  color: var(--dark);
+  border-color: var(--orange);
+}
+.mp-btn-play {
+  width: 40px;
+  height: 40px;
+  border-color: var(--orange);
+  color: var(--orange);
+  font-size: 14px;
+}
+.mp-volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.mp-vol-icon {
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--orange);
+  flex-shrink: 0;
+  width: 18px;
+  text-align: center;
+  transition: opacity .2s;
+}
+.mp-vol-icon:hover { opacity: .65; }
+.mp-vol-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.mp-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--dark);
+  box-shadow: 0 0 0 1px var(--orange);
+}
+.mp-vol-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--dark);
+  box-shadow: 0 0 0 1px var(--orange);
+}
+.mp-vol-value {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--muted);
+  min-width: 26px;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.mp-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  transition: color .2s;
+}
+.mp-close:hover { color: var(--orange); }
+
+/* ============================
+   NOW ON AIR BAR
+   Reference: ด้านล่าง fixed
+   LEFT: thumb + "NOW ON AIR | NAME"
+   RIGHT: tab boxes 01 02 03 04
+============================ */
+#now-on-air {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 900;
+  height: 56px;
+  background: #000000;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 8px 28px;
+}
+
+.air-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border: 1px solid var(--orange);
+  height: 40px;
+  overflow: hidden;
+}
+.air-thumb {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.air-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--orange);
+}
+.air-text em {
+  font-style: normal;
+  color: var(--orange);
+}
+
+/* Tabs */
+.air-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.air-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 1px solid var(--orange);
+  padding: 0 12px;
+  cursor: pointer;
+  font-family: var(--EN);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--orange);
+  background: none;
+  text-transform: uppercase;
+  transition: color .2s, background .2s;
+  white-space: nowrap;
+  min-width: 44px;
+  height: 40px;
+}
+.air-tab:hover { color: var(--dark); background: var(--orange); }
+
+.air-tab-name {
+  font-size: 9px;
+  letter-spacing: .1em;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width .4s ease, opacity .3s, margin .4s;
+  color: var(--dark);
+}
+
+.air-tab.active {
+  background: var(--orange);
+  color: var(--dark);
+}
+.air-tab.active .air-tab-name {
+  max-width: 200px;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* ============================
+   PROJECT DETAIL PAGE
+   Reference image 2
+============================ */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 20px 32px;
+  background: none;
+  border: none;
+  color: var(--orange);
+  font-family: var(--EN);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.back-btn:hover { opacity: .6; }
+
+/* Project logo / title block — reference shows ornate centered logo */
+.proj-detail-header {
+  text-align: center;
+  padding: 30px 20px 36px;
+}
+.proj-detail-logo {
+  display: block;
+  max-width: 480px;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+  margin: 0 auto 14px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 20px rgba(0,0,0,.6));
+}
+.proj-detail-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .4em;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+.proj-detail-title {
+  font-size: clamp(22px, 3vw, 38px);
+  font-weight: 900;
+  letter-spacing: .14em;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.proj-detail-sub {
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--orange);
+  letter-spacing: .06em;
+}
+
+/* ─── DIAGONAL CHARACTER CARDS ───
+   Reference: parallelogram tilted ~-13deg
+   3 rows × 8 cards, first row has real images, rest empty (orange)
+   Cards overlap slightly, tight gap
+──────────────────────────────────── */
+.char-section {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.char-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+/* The parallelogram wrapper */
+.c-card {
+  width: 88px;
+  height: 158px;
+  flex-shrink: 0;
+  transform: skewX(-13deg);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: var(--orange);
+  transition: transform .3s cubic-bezier(.4,0,.2,1), filter .3s;
+}
+.c-card:hover {
+  transform: skewX(-13deg) translateY(-14px);
+  filter: brightness(1.2);
+  z-index: 5;
+}
+
+/* Counter-skew so image stays upright */
+.c-card img {
+  position: absolute;
+  top: 0; left: -14%;
+  width: 128%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transform: skewX(13deg);
+  display: block;
+}
+
+/* Empty / locked slot */
+.c-card.empty {
+  background: var(--orange);
+  opacity: .6;
+  cursor: default;
+}
+.c-card.empty:hover {
+  transform: skewX(-13deg);
+  filter: none;
+}
+.c-card.empty img {
+  opacity: .2;
+}
+
+/* Pagination dots (for projects with > 1 page, e.g. Nemorphine) */
+.char-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 0 24px;
+}
+.page-dot {
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  width: 38px; height: 38px;
+  cursor: pointer;
+  font-family: var(--EN);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  transition: background .2s, color .2s, transform .2s;
+}
+.page-dot.active,
+.page-dot:hover { background: var(--orange); color: var(--dark); }
+.page-dot.active { transform: translateY(-2px); }
+
+/* Decorative divider — reference shows thin line with diamonds */
+.proj-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px auto 0;
+  width: 360px;
+  max-width: 90vw;
+}
+.proj-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--orange));
+}
+.proj-divider-line.r {
+  background: linear-gradient(to left, transparent, var(--orange));
+}
+.proj-divider-gem {
+  color: var(--orange);
+  font-size: 9px;
+  letter-spacing: 6px;
+}
+
+/* ============================
+   MODS PAGE
+============================ */
+#page-mods {
+  min-height: 100vh;
+  padding-top: 54px;
+  padding-bottom: 56px;
+  background: var(--dark);
+}
+
+.mods-inner {
+  padding: 20px 32px 48px;
+}
+
+.mods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mod-card {
+  background: var(--dark2);
+  padding: 24px 20px;
+  transition: background .2s;
+}
+.mod-card:hover { background: #201408; }
+
+.mod-tag {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .3em;
+  color: var(--orange);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.mod-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+}
+.mod-desc {
+  font-family: var(--TH);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.mod-dl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--orange);
+  padding: 6px 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--orange);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  font-family: var(--EN);
+  text-transform: uppercase;
+  background: none;
+}
+.mod-dl:hover { background: var(--orange); color: var(--dark); }
+
+/* ============================
+   TRACK NUMBER PAGE
+============================ */
+#page-track {
+  min-height: 100vh;
+  padding-top: 54px;
+  background: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 56px;
+}
+
+.track-box {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 24px;
+}
+.track-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .4em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.track-heading {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  margin-bottom: 8px;
+}
+.track-sub {
+  font-family: var(--TH);
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.track-field {
+  width: 100%;
+  background: var(--dark2);
+  border: none;
+  border-bottom: 1px solid var(--orange);
+  color: var(--cream);
+  font-family: var(--EN);
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  margin-bottom: 10px;
+  display: block;
+  transition: border-color .2s;
+}
+.track-field:focus { border-color: #e07840; }
+.track-field::placeholder { color: var(--muted); font-family: var(--TH); }
+
+.track-submit {
+  width: 100%;
+  margin-top: 8px;
+  background: var(--orange);
+  border: none;
+  color: var(--dark);
+  font-family: var(--EN);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 14px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.track-submit:hover { background: #d97030; }
+
+.track-result {
+  display: none;
+  margin-top: 20px;
+  border: 1px solid var(--border);
+  background: var(--dark2);
+  padding: 16px 18px;
+}
+.track-result.show { display: block; }
+.track-result-label {
+  font-size: 9px;
+  letter-spacing: .28em;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.track-result-text { font-size: 14px; font-weight: 600; }
+
+/* ============================
+   TRACK NUMBER MODAL OVERRIDE
+============================ */
+.track-modal-box {
+  max-width: 460px !important;
+  display: block !important;
+  padding: 36px 28px 28px;
+}
+.track-modal-box .track-box {
+  padding: 0;
+  max-width: none;
+}
+
+/* ============================
+   CHARACTER MODAL
+============================ */
+.modal-bg {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.88);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-bg.open { display: flex; }
+
+.modal-box {
+  background: var(--dark2);
+  border: 1px solid var(--orange);
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.modal-img-col {
+  width: 180px;
+  flex-shrink: 0;
+  background: var(--dark);
+  border-right: 1px solid var(--border);
+}
+.modal-img-col img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.modal-body {
+  flex: 1;
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.modal-roman {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .35em;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+.modal-name {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  line-height: 1.15;
+  margin-bottom: 2px;
+}
+.modal-thai {
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+}
+.modal-en {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.modal-hr {
+  width: 28px; height: 1px;
+  background: var(--orange);
+  margin-bottom: 12px;
+}
+.modal-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.modal-stats > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.modal-stats .k {
+  display: inline-block;
+  width: 44px;
+  flex-shrink: 0;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+.modal-stats .v {
+  font-family: var(--TH);
+  font-size: 12px;
+  color: var(--cream);
+  line-height: 1.45;
+}
+.modal-player {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.modal-player-line {
+  font-family: var(--TH);
+  font-size: 11px;
+  color: var(--muted);
+}
+.modal-player-line strong {
+  color: var(--cream);
+  font-family: var(--EN);
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+.modal-player-id {
+  font-family: var(--EN);
+  font-size: 10px;
+  color: var(--muted);
+}
+.modal-player-yt {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 7px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background .2s, color .2s;
+  width: fit-content;
+}
+.modal-player-yt:hover { background: var(--orange); color: var(--dark); }
+.modal-tag {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--orange);
+  letter-spacing: .04em;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: none; border: none;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .2s;
+}
+.modal-close-btn:hover { color: var(--cream); }
+
+/* ============================
+   SCROLLBAR
+============================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+/* ============================
+   NEWS SECTION (YouTube embeds)
+   Row 1: 2 original-song embeds · Row 2: 3 LENLOR clip embeds
+============================ */
+#news-section {
+  background: var(--dark);
+  padding: 56px 24px 64px;
+}
+.news-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.news-row {
+  display: grid;
+  gap: 14px;
+}
+.news-row.r-2 { grid-template-columns: repeat(2, 1fr); }
+.news-row.r-3 { grid-template-columns: repeat(3, 1fr); }
+
+.news-item {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.news-item:hover { border-color: var(--orange); transform: translateY(-3px); }
+.news-item iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.news-item-label {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  max-width: calc(100% - 24px);
+  font-family: var(--EN);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--orange);
+  background: rgba(0,0,0,.78);
+  padding: 5px 10px;
+  pointer-events: none;
+  z-index: 2;
+  line-height: 1.35;
+}
+
+.news-item.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #1a1108 0%, #0d0905 100%);
+}
+.news-item.placeholder .ph-label {
+  font-family: var(--EN);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .25em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.news-item.placeholder .ph-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 8px 16px;
+  font-family: var(--EN);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background .2s, color .2s;
+}
+.news-item.placeholder .ph-link:hover {
+  background: var(--orange);
+  color: var(--dark);
+}
+
+/* ============================
+   FOOTER
+============================ */
+#footer {
+  background: var(--orange);
+  color: var(--dark);
+  padding: 48px 24px 38px;
+  text-align: center;
+  font-family: var(--EN);
+}
+.footer-logo {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 14px;
+  display: block;
+  object-fit: contain;
+}
+.footer-tagline {
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 22px;
+  letter-spacing: .02em;
+}
+.footer-tagline em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--dark);
+  background: rgba(0,0,0,.12);
+  padding: 1px 6px;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.footer-links a {
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity .2s;
+  background: none;
+  border: none;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+}
+.footer-links a:hover { opacity: .55; }
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.footer-social a {
+  color: var(--dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--dark);
+  transition: background .2s, color .2s;
+  text-decoration: none;
+}
+.footer-social a:hover { background: var(--dark); color: var(--orange); }
+.footer-social svg { width: 14px; height: 14px; fill: currentColor; display: block; }
+.footer-social a.yt svg { width: 17px; height: 17px; }
+.footer-social a.dc svg { width: 16px; height: 16px; }
+.footer-copy {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .25em;
+  opacity: .75;
+}
+
+/* ============================
+   SPACER
+============================ */
+.spacer { height: 56px; }
+
+/* ============================================================
+   MOBILE / RESPONSIVE
+   Per spec: mobile keeps the desktop layout — only the header
+   collapses into a hamburger.
+============================================================ */
+@media (max-width: 720px) {
+  #header .nav-group { display: none; }
+  .hamburger-btn { display: flex; }
+  #header { justify-content: center; padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     HEADER
+══════════════════════════════ -->
+<div id="header">
+  <nav class="nav-group">
+    <button class="nav-btn" onclick="scrollToSection('projects-section')">Project</button>
+    <button class="nav-btn" onclick="scrollToSection('news-section')">News</button>
+    <button class="nav-btn" onclick="scrollToSection('team-section')">Our Team</button>
+  </nav>
+
+  <div class="nav-logo">
+    <img src="logo_lenlor_t.png" alt="LENLOR" onclick="goHome()">
+  </div>
+
+  <nav class="nav-group">
+    <button class="nav-btn" onclick="goPage('mods')">Mods</button>
+    <button class="nav-btn">Goods</button>
+    <button class="nav-btn" onclick="openTrackModal()">Track Number</button>
+    <div class="nav-social">
+      <a href="https://www.tiktok.com/@lenlorcraft?lang=en" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.95a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.38Z"/></svg>
+      </a>
+      <a class="yt" href="https://www.youtube.com/@Lenlorteam" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.51a3 3 0 0 0-2.1-2.13C19.4 4 12 4 12 4s-7.4 0-9.4.38A3 3 0 0 0 .5 6.51 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.49 3 3 0 0 0 2.1 2.13C4.6 20 12 20 12 20s7.4 0 9.4-.38a3 3 0 0 0 2.1-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.49ZM9.75 15.5v-7l6.5 3.5-6.5 3.5Z"/></svg>
+      </a>
+      <a class="dc" href="https://discord.gg/sDAVfY6PmG" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.21-.412.408-.84.589-1.273.013-.025.005-.054-.022-.07a13.235 13.235 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.18.428.378.856.588 1.268.353.7.764 1.365 1.226 1.994.018.024.05.034.078.026a19.834 19.834 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.548-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.42 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.336-.957 2.42-2.157 2.42zm7.974 0c-1.18 0-2.157-1.085-2.157-2.42 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.336-.946 2.42-2.157 2.42z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile hamburger (only visible on small screens) -->
+  <button id="hamburger" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════
+     MOBILE MENU (drops down on small screens)
+══════════════════════════════ -->
+<div id="mobile-menu" class="mobile-menu">
+  <button onclick="mobileNav(() => scrollToSection('projects-section'))">Project</button>
+  <button onclick="mobileNav(() => scrollToSection('news-section'))">News</button>
+  <button onclick="mobileNav(() => scrollToSection('team-section'))">Our Team</button>
+  <button onclick="mobileNav(() => goPage('mods'))">Mods</button>
+  <button onclick="mobileNav(() => {})">Goods</button>
+  <button onclick="mobileNav(() => openTrackModal())">Track Number</button>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: HOME
+══════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO — pure orange, reference image 1 -->
+  <div id="hero">
+    <!-- ใส่รูป BG ได้ที่นี่: <img class="hero-img" src="ชื่อรูป.jpg"> -->
+  </div>
+
+  <!-- PROJECTS -->
+  <div id="projects-section">
+    <div class="section-eyebrow">— Project —</div>
+    <div class="projects-row" id="projects-row"></div>
+
+    <!-- Inline expand: slides down with the active project's character grid -->
+    <div id="proj-expand" class="proj-expand">
+      <div class="proj-expand-inner">
+        <button class="proj-expand-close" onclick="closeProject()" aria-label="close">✕</button>
+        <div class="proj-detail-header">
+          <img class="proj-detail-logo" id="d-logo" alt="" onerror="this.style.display='none'">
+          <div class="proj-detail-eyebrow" id="d-eyebrow"></div>
+          <div class="proj-detail-title" id="d-title"></div>
+          <div class="proj-detail-sub" id="d-sub"></div>
+        </div>
+        <div class="char-section" id="char-section"></div>
+        <div class="char-pagination" id="char-pagination"></div>
+        <div class="proj-divider">
+          <div class="proj-divider-line"></div>
+          <div class="proj-divider-gem">✦ ✦ ✦</div>
+          <div class="proj-divider-line r"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWS — 2 original songs + 3 LENLOR clips (latest from @Lenlorteam) -->
+  <div id="news-section">
+    <div class="section-eyebrow">— News —</div>
+    <div class="news-grid" id="news-grid"></div>
+  </div>
+
+  <!-- TEAM -->
+  <div id="team-section">
+    <div class="section-eyebrow">— Our Team —</div>
+    <div class="team-grid" id="team-grid"></div>
+  </div>
+
+  <!-- FOOTER (orange #FF8952) — Track Number intentionally excluded; access via header -->
+  <footer id="footer">
+    <img class="footer-logo" src="logo_lenlor_t.png" alt="LENLOR">
+    <div class="footer-tagline">กลุ่มเพื่อนที่หาอะไร <em>'เล่นรอ'</em></div>
+    <div class="footer-links">
+      <a onclick="scrollToSection('projects-section')">Project</a>
+      <a onclick="scrollToSection('team-section')">Our Team</a>
+      <a onclick="goPage('mods')">Mods</a>
+      <a>Goods</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.tiktok.com/@lenlorcraft?lang=en" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.95a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.38Z"/></svg>
+      </a>
+      <a class="yt" href="https://www.youtube.com/@Lenlorteam" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.51a3 3 0 0 0-2.1-2.13C19.4 4 12 4 12 4s-7.4 0-9.4.38A3 3 0 0 0 .5 6.51 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.49 3 3 0 0 0 2.1 2.13C4.6 20 12 20 12 20s7.4 0 9.4-.38a3 3 0 0 0 2.1-2.13A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.49ZM9.75 15.5v-7l6.5 3.5-6.5 3.5Z"/></svg>
+      </a>
+      <a class="dc" href="https://discord.gg/sDAVfY6PmG" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.21-.412.408-.84.589-1.273.013-.025.005-.054-.022-.07a13.235 13.235 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.18.428.378.856.588 1.268.353.7.764 1.365 1.226 1.994.018.024.05.034.078.026a19.834 19.834 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.548-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.42 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.336-.957 2.42-2.157 2.42zm7.974 0c-1.18 0-2.157-1.085-2.157-2.42 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.094 2.157 2.418 0 1.336-.946 2.42-2.157 2.42z"/></svg>
+      </a>
+    </div>
+    <div class="footer-copy">© 2026 LENLORCRAFT</div>
+  </footer>
+
+  <div class="spacer"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: MODS
+══════════════════════════════ -->
+<div id="page-mods" class="page">
+  <div class="mods-inner">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="section-eyebrow" style="margin-bottom:28px;">— Free Mods —</div>
+    <div class="mods-grid" id="mods-grid"></div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══════════════════════════════
+     MUSIC PLAYER (BG music, fixed bottom-right)
+══════════════════════════════ -->
+<div id="music-player">
+  <button class="mp-close" onclick="hidePlayer()" aria-label="close">✕</button>
+  <div class="mp-label">Now Playing</div>
+  <div class="mp-title" id="mp-title">—</div>
+  <div class="mp-artist">LENLORCRAFT</div>
+  <div class="mp-controls">
+    <button class="mp-btn" onclick="prevTrack()" aria-label="previous track" title="Previous">⏮</button>
+    <button class="mp-btn mp-btn-play" id="mp-play" onclick="togglePlay()" aria-label="play/pause" title="Play / Pause">▶</button>
+    <button class="mp-btn" onclick="nextTrack()" aria-label="next track" title="Next">⏭</button>
+  </div>
+  <div class="mp-volume">
+    <span class="mp-vol-icon" id="mp-vol-icon" onclick="toggleMute()" title="Mute / Unmute">🔊</span>
+    <input class="mp-vol-slider" id="mp-vol-slider" type="range" min="0" max="100" value="50" aria-label="volume">
+    <span class="mp-vol-value" id="mp-vol-value">50</span>
+  </div>
+  <audio id="mp-audio" preload="metadata"></audio>
+</div>
+
+<!-- ══════════════════════════════
+     NOW ON AIR BAR (fixed bottom)
+     Reference: LEFT thumb+text | RIGHT tab boxes
+══════════════════════════════ -->
+<div id="now-on-air">
+  <div class="air-label">
+    <img class="air-thumb" id="air-thumb" src="CARD/4card IV.png" alt="" onerror="this.style.display='none'">
+    <div class="air-text">NOW ON AIR &nbsp;|&nbsp; <em id="air-name">LUSTORIA HOTEL</em></div>
+  </div>
+  <div class="air-tabs" id="air-tabs"></div>
+</div>
+
+<!-- ══════════════════════════════
+     TRACK NUMBER MODAL (opens from header → Track Number)
+══════════════════════════════ -->
+<div class="modal-bg" id="track-modal" onclick="trackModalBgClick(event)">
+  <div class="modal-box track-modal-box">
+    <button class="modal-close-btn" onclick="closeTrackModal()">✕</button>
+    <div class="track-box">
+      <div class="track-eyebrow">Lenlorcraft</div>
+      <div class="track-heading">Track Number</div>
+      <div class="track-sub">กรอกชื่อและนามสกุลเพื่อตรวจสอบสถานะสั่งของ</div>
+      <input  class="track-field" id="tf-first" type="text" placeholder="ชื่อ (First Name)">
+      <input  class="track-field" id="tf-last"  type="text" placeholder="นามสกุล (Last Name)">
+      <button class="track-submit" onclick="doTrack()">ค้นหา / Search</button>
+      <div class="track-result" id="track-result">
+        <div class="track-result-label">ผลการค้นหา</div>
+        <div class="track-result-text" id="track-result-text"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHARACTER MODAL
+══════════════════════════════ -->
+<div class="modal-bg" id="char-modal" onclick="modalBgClick(event)">
+  <div class="modal-box">
+    <div class="modal-img-col">
+      <img id="m-img" src="" alt="" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-roman"  id="m-roman"></div>
+      <div class="modal-name"   id="m-name"></div>
+      <div class="modal-thai"   id="m-thai"></div>
+      <div class="modal-en"     id="m-en"></div>
+      <div class="modal-hr"></div>
+      <div class="modal-stats"  id="m-stats"></div>
+      <div class="modal-player" id="m-player"></div>
+      <div class="modal-tag"    id="m-tag"></div>
+    </div>
+    <button class="modal-close-btn" onclick="closeModal()">✕</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+/* ─────────────────────
+   DATA
+───────────────────── */
+const PROJECTS = [
+  {
+    id: 'lenlor1', num: '01', name: 'LENLORCRAFT 1',
+    subtitle: '', onAir: false,
+    logo: 'Project/logo_lenlorcraft_1.png',
+    logoTitle: 'Project/no_bg/logo_lenlorcraft.png',
+    rows: 2, pages: 1,
+    chars: []
+  },
+  {
+    id: 'rotas', num: '02', name: 'ROTAS',
+    subtitle: '', onAir: false,
+    logo: 'Project/logo_rotas-02.png',
+    logoTitle: 'Project/no_bg/logo_rotas.png',
+    rows: 3, pages: 1,
+    chars: []
+  },
+  {
+    id: 'nemorphine', num: '03', name: 'THE NEMORPHINE',
+    subtitle: '', onAir: false,
+    logo: 'Project/logo_the_nemorphine.png',
+    logoTitle: 'Project/no_bg/logo_the_nemorphine.png',
+    rows: 3, pages: 3,
+    chars: []
+  },
+  {
+    id: 'lustoria', num: '04', name: 'LUSTORIA HOTEL',
+    subtitle: '', onAir: true,
+    logo: 'Project/logo_lustoria_hotel.png',
+    logoTitle: 'Project/no_bg/logu_lustoria_hotel.png',
+    rows: 3, pages: 1,
+    chars: [
+      { roman:'0',     name:'The Fool',           img:'CARD/0card 0.png',
+        thai:'โพลโว่ เจเรก้า', en:'Polvo Jelaga',
+        age:17, role:'โจร', profession:'โจรจากสลัม',
+        head:'Heart', sin:'Sin of Innocence',
+        player:'ฟ้า', playerId:'m3ngzh1', ytName:'M3ng_Zh1',
+        yt:'https://www.youtube.com/channel/UCLrVByHOftcetdocaFL0LgQ',
+        tag:'#LustoriaHotelเรก้า' },
+
+      { roman:'I',     name:'The Magician',       img:'CARD/1card I.png',
+        thai:'วารัม', en:'Varam',
+        age:25, role:'ชาวบ้าน', profession:'นักมายากลเร่ร่อน',
+        head:'Slot Machine', sin:'Lie',
+        player:'ดรีม', playerId:'Oceanalama', ytName:'GODPAUSE',
+        yt:'https://www.youtube.com/@god_pause',
+        tag:'#LustoriaHotelวารัม' },
+
+      { roman:'II',    name:'Two of Swords',      img:'CARD/2card II.png',
+        thai:'เมโลเรีย แอสทราเวล', en:'Meloria Astravelle (เมเรีย)',
+        age:20, role:'ผู้ติดตาม', profession:'แม่บ้าน',
+        head:'Eyes', sin:'Silent Apathy',
+        player:'ได๋', playerId:'daidiaryyy', ytName:'daidiaryy',
+        yt:'https://www.youtube.com/@daidiaryy1/streams',
+        tag:'#LustoriaHotelเมเรีย' },
+
+      { roman:'III',   name:'The Empress',        img:'CARD/3card III.png',
+        thai:'โอฟิเลีย มอนท์แคลร์', en:"Montclair Ophelia",
+        age:23, role:'คนรวย', profession:'มูลนิธิ, ค้ามนุษย์',
+        head:'Spider', sin:'Sin of Drunkenness',
+        player:'เตย', playerId:'Pantera211', ytName:'Alvina Ch',
+        yt:'https://www.youtube.com/channel/UCwLCMt4wN6dTIWvxt0w95rQ',
+        tag:'#LustoriaHotelโอฟิเลีย' },
+
+      { roman:'IV',    name:'The Emperor',        img:'CARD/4card IV.png',
+        thai:'นิโคไล จีโนซิส ราเว่น', en:'Nikolai Ž. Genosis Raven',
+        age:30, role:'โจร', profession:'อดีตมาเฟีย / โจรจากสลัม',
+        head:'Myriad Machine', sin:'Knowledge (Destruction)',
+        player:'มาธาร์', playerId:'AizenZ_', ytName:'Marstinny',
+        yt:'https://www.youtube.com/@Vinciana11',
+        tag:'#LustoriaHotelนิโคไล' },
+
+      { roman:'V',     name:'The Hierophant',     img:'CARD/5card V.png',
+        thai:'โลเล็ตต้า แอสทราเวล', en:'Loletta Astravelle (โลโล)',
+        age:16, role:'ผู้ติดตาม', profession:'เด็ก ม.ปลาย',
+        head:'Hand', sin:'Sin of Fixation',
+        player:'ปุย', playerId:'PUINAAAA', ytName:'Akari Puina Ch.',
+        yt:'https://www.youtube.com/@AkariPuina',
+        tag:'#LustoriaHotelโลเล็ตต้า' },
+
+      { roman:'VI',    name:'The Lovers',         img:'CARD/6card VI.png',
+        thai:'ลาวินเนียร์ ไวโอเลต เลอมองส์', en:'Lavinia Violet Le Mans',
+        age:19, role:'ชาวบ้าน', profession:'ลูกสาวร้านน้ำหอม',
+        head:'Perfume', sin:'Sin of Infatuated',
+        player:'ลุงเตย์', playerId:'raynailz', ytName:'LUNGTAY',
+        yt:'https://www.youtube.com/channel/UCm2sJNo1vFkW7bXjXYWGC9A',
+        tag:'#LustoriaHotelลาวินเนียร์' },
+
+      { roman:'VII',   name:'The Chariot',        img:'CARD/7card VII.png',
+        thai:'สตีเว่น', en:'Steven',
+        age:27, role:'โจร', profession:'โจร / นักวางแผน',
+        head:'Paper Bag', sin:'Sin of Survival',
+        player:'ไม้', playerId:'ghostmaiky', ytName:'ghostmaiky',
+        yt:'https://www.youtube.com/@ghostmaiky',
+        tag:'#LustoriaHotelสตีเว่น' },
+
+      { roman:'VIII',  name:'Strength',           img:'CARD/8card VIII.png',
+        thai:'วิเวียน ฟิโอเรลลี่', en:'Vivienne Fiorelli',
+        age:22, role:'คนรวย', profession:'คุณหนูบ้านรวย',
+        head:'Doll', sin:'Veil of Sin',
+        player:'เชาเชา', playerId:'Lavy_W', ytName:'C how_เชา',
+        yt:'https://www.youtube.com/channel/UCE14qSbcpPdt71ty3xRM5VA',
+        tag:'#LustoriaHotelวิเวียน' },
+
+      { roman:'IX',    name:'The Hermit',         img:'CARD/9card IX.png',
+        thai:'โนวิค อีแวนสัน', en:'Novik Evanson',
+        age:'-', role:'ไอดอล', profession:'คนความจำเสื่อม',
+        head:'Identity', sin:'Endless Enigma',
+        player:'เลเวียซ', playerId:'Leviaz_VTB', ytName:'Leviaz Ch.【DPX】',
+        yt:'https://www.youtube.com/@LeviazCh',
+        tag:'#LustoriaHotelโนวิค' },
+
+      { roman:'X',     name:'Wheel of Fortune',   img:'CARD/10card X.png',
+        thai:'บีบี เบลบอร์น', en:'BB Belborn',
+        age:25, role:'โจร', profession:'คนจากสลัมที่มาเป็นโจร (เพื่อนชวน)',
+        head:'Glasses', sin:'The Awakening Story',
+        player:'คาวาย', playerId:'_Kawai', ytName:'kawaimecute',
+        yt:'https://www.youtube.com/@Kawaime1191',
+        tag:'#LustoriaHotelบีบี' },
+
+      { roman:'XI',    name:'Justice',            img:'CARD/11card XI.png',
+        thai:'มอเรี่ยน เฮลบาวด์', en:'Morian Helbound',
+        age:18, role:'คนรวย', profession:'หัวหน้าก๊งปล่อยเงินกู้ / ค้าอาวุธ',
+        head:'Hollow', sin:'Sin of Greed',
+        player:'กล้า', playerId:'SchwarzX2', ytName:'Schwarz',
+        yt:'https://www.youtube.com/@SchwarzX2',
+        tag:'#LustoriaHotelมอเรี่ยน' },
+
+      { roman:'XII',   name:'The Hanged Man',     img:'CARD/12crad XII.png',
+        thai:'ไฮยาซีน วิสเปอร์', en:'Hyacinth Whisper',
+        age:26, role:'ชาวบ้าน', profession:'ชาวประมง',
+        head:'Hyaenidae', sin:'Survive',
+        player:'ลัส', playerId:'LuZQuLa._', ytName:'LuZQuLa._',
+        yt:'https://www.youtube.com/@luzqula._6654',
+        tag:'#LustoriaHotelไฮยาซีน' },
+
+      { roman:'XIII',  name:'Death',              img:'CARD/13card XIII.png',
+        thai:'ลูน อามาเลีย มอโร', en:'Lune Amélia Moreau',
+        age:23, role:'คนรวย', profession:'ร้านขายเสื้อผ้าแฟชั่น / มาเฟีย',
+        head:'Hyaenidae', sin:'Fraud',
+        player:'เคียวยะ', playerId:'KyoYaKunGz', ytName:'Kyo Ya Kun Ch',
+        yt:'https://www.youtube.com/channel/UCooSuXw2VZedO90XGtEAg9w',
+        tag:'#LustoriaHotelลูน' },
+
+      { roman:'XIV',   name:'Temperance',         img:'CARD/14card XIV.png',
+        thai:'คอเวน คูซาร์', en:"Corvane Q'sar",
+        age:32, role:'ชาวบ้าน', profession:'บาทหลวง',
+        head:'Sins', sin:'Rottenfaith',
+        player:'เป็ด', playerId:'MrQuestion7', ytName:'MrQuestion',
+        yt:'https://www.youtube.com/@mrquestion4498',
+        tag:'#LustoriaHotelคูซาร์' },
+
+      { roman:'XV',    name:'The Devil',          img:'CARD/15card XV.png',
+        thai:'โลกิ ซารานเฟย์', en:'Loki Zalanfay',
+        age:32, role:'ผู้ติดตาม', profession:'พ่อบ้าน',
+        head:'Crow', sin:'Sin of the Deceiver',
+        player:'มาร์ค', playerId:'Makukung', ytName:'MakuKung',
+        yt:'https://www.youtube.com/channel/UCaOPp1ZwjLtNWPi8Thc975g',
+        tag:'#LustoriaHotelโลกิ' },
+
+      { roman:'XVI',   name:'The Tower',          img:'CARD/16crad XVI.png',
+        thai:'แคลริสซา มอร์ทิมเมอร์', en:'Clarissa Mortimer',
+        age:29, role:'ล. โรงแรม', profession:'นักธุรกิจ',
+        head:'Moth', sin:'Spiritruin',
+        player:'ซาบิ', playerId:'SaBleoik', ytName:'SeRaEl',
+        yt:'https://www.youtube.com/@SaBlE5110',
+        tag:'#LustoriaHotelแคลริสซา' },
+
+      { roman:'XVII',  name:'The Star',           img:'CARD/17card XVII.png',
+        thai:'ลีแวน', en:'Lievan',
+        age:18, role:'ผู้ติดตาม', profession:'เลขา',
+        head:'Hask', sin:'Falsegrin',
+        player:'จีจ้า', playerId:'Jeeja00', ytName:'je jeeja',
+        yt:'https://www.youtube.com/@je_jeeja',
+        tag:'#LustoriaHotelลีแวน' },
+
+      { roman:'XVIII', name:'The Moon',           img:'CARD/18card XVIII.png',
+        thai:'-', en:'-',
+        age:40, role:'พ่อเจ้าของโรงแรม', profession:'เจ้าของโรงแรมคนเก่า',
+        head:'-', sin:'-',
+        player:'-', playerId:'WaitAsencnd', ytName:'',
+        yt:'',
+        tag:'#LustoriaHotel' },
+
+      { roman:'XIX',   name:'The Sun',            img:'CARD/19card XIX.png',
+        thai:'โนอาห์', en:'Noah',
+        age:33, role:'บัตเลอร์', profession:'บัตเลอร์',
+        head:'Pumpkin Rabbit', sin:'Nullgrace',
+        player:'บราว', playerId:'AE_KillerZ', ytName:'BrownSugar',
+        yt:'https://www.youtube.com/@brownsugarpow',
+        tag:'#LustoriaHotelโนอาห์' },
+
+      { roman:'XX',    name:'The Judgement',      img:'CARD/20card XX.png',
+        thai:'โซระ อาคามิเนะ', en:'Sora Akamine',
+        age:23, role:'ผู้ติดตาม', profession:'พ่อบ้าน',
+        head:'Tengu', sin:'Payback',
+        player:'กล้วย', playerId:'KANKLUAY_', ytName:'กล้วยเอง',
+        yt:'https://www.youtube.com/@Kluayeng',
+        tag:'#LustoriaHotelโซระ' },
+
+      { roman:'XXI',   name:'The World',          img:'CARD/21card XXI.png',
+        thai:'แมว', en:'Cat',
+        age:'-', role:'แมว', profession:'แมว',
+        head:'-', sin:'-',
+        player:'นอร์ท', playerId:'somnoth', ytName:'AGI-NORTH',
+        yt:'https://www.youtube.com/@agi-north158',
+        tag:'#LustoriaHotel' },
+    ]
+  }
+];
+
+const TEAM = [
+  { name:'110KILL',           thai:'น้องต้าสุดที่รักของพี่',           char:'',          yt:'https://www.youtube.com/results?search_query=110kill',                    img:'profile/110kill.png' },
+  { name:'Akari Puina Ch.',   thai:'ปุยนะ',      char:'โลเล็ตต้า', yt:'https://www.youtube.com/@AkariPuina',                                     img:'profile/Akari Puina Ch. .jpg' },
+  { name:'Alvina Ch',         thai:'อัลวีน่า',   char:'โอฟิเลีย',            yt:'https://www.youtube.com/channel/UCwLCMt4wN6dTIWvxt0w95rQ',                img:'profile/Alvina_ch-01.png' },
+  { name:'C how_เชา',         thai:'เชาเชา',     char:'วิเวียน',  yt:'https://www.youtube.com/channel/UCE14qSbcpPdt71ty3xRM5VA',                img:'profile/ChowChow.png' },
+  { name:'daidiaryy',         thai:'สมได๋',      char:'เมโลเรีย',            yt:'https://www.youtube.com/@daidiaryy1/streams',                             img:'profile/daiidiaryy.png' },
+  { name:'Fiatake',           thai:'เฟีย',       char:'',                    yt:'https://www.youtube.com/@Fiatake1311',                                    img:'profile/เฟียร์.gif' },
+  { name:'je jeeja',          thai:'จีจ้า',      char:'Lievan (ลี-แวน)',     yt:'https://www.youtube.com/@je_jeeja',                                       img:'profile/Jejeeja.png' },
+  { name:'kawaimecute',       thai:'คาวาย',      char:'บีบี',       yt:'https://www.youtube.com/@Kawaime1191',                                    img:'profile/kawaimecute.png' },
+  { name:'Kyo Ya Kun Ch',     thai:'เคียวยะคุง', char:'ลูน',   yt:'https://www.youtube.com/channel/UCooSuXw2VZedO90XGtEAg9w',                img:'CARD/13card XIII.png' },
+  { name:'Leviaz Ch.【DPX】', thai:'เลเวียซ',    char:'โนวิค',      yt:'https://www.youtube.com/@LeviazCh',                                       img:'profile/leviez.jpg' },
+  { name:'LUNGTAY',           thai:'ลุงเตย์',    char:'ลาวินเนียร์',         yt:'https://www.youtube.com/channel/UCm2sJNo1vFkW7bXjXYWGC9A',                img:'profile/lungtay02.jpg' },
+  { name:'LuZQuLa._',         thai:'ลัสคิวลาร์', char:'ไฮยาซีน',             yt:'https://www.youtube.com/@luzqula._6654',                                  img:'profile/LuZQula_..png' },
+  { name:'M3ng_Zh1',          thai:'เหมงชี่',    char:'โพลโว่',      yt:'https://www.youtube.com/channel/UCLrVByHOftcetdocaFL0LgQ',                img:'CARD/0card 0.png' },
+  { name:'Oryza',             thai:'ทอย',        char:'',                    yt:'https://www.youtube.com/channel/UC4pByjXGFdMz2_WA1mS4b0Q',                img:'profile/toy-01.png' },
+  { name:'Schwarz',           thai:'ชวาตซ์',     char:'มอเรี่ยน',            yt:'https://www.youtube.com/@SchwarzX2',                                      img:'profile/schwarz-01.png' },
+  { name:'SeRaEl',            thai:'เซราเอล',    char:'แคลริสซา',            yt:'https://www.youtube.com/@SaBlE5110',                                      img:'profile/SeRaEl.png' },
+  { name:'กล้วยเอง',          thai:'ไอกล้วย',    char:'โซระ',      yt:'https://www.youtube.com/@Kluayeng',                                       img:'CARD/20card XX.png' },
+];
+
+const NEWS = {
+  songs: [
+    { label: '【Original Song】Goal set! | LenlorCraft', vid: 'AW0cg7xz9So' },
+    { label: '【Original Song】DEATH ILLUSION - ภาพลวงแห่งความตาย | Lustoria Hotel , LenlorCraft', vid: '1waAm7-5OpI' }
+  ],
+  // Clips: no manual label — YouTube's own title bar shows inside the player.
+  clips: [
+    { label: '', vid: 'YuC7E12JJIE' },
+    { label: '', vid: 'xki_3qjqfhs', start: 22 },
+    { label: '', vid: 'F64QAYch530', start: 11 }
+  ]
+};
+const LENLOR_YT_CHANNEL = 'https://www.youtube.com/@Lenlorteam';
+
+const MODS = [
+  {tag:'RESOURCE PACK', name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
+  {tag:'DATA PACK',     name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
+  {tag:'RESOURCE PACK', name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
+];
+
+/* ─────────────────────
+   RENDER
+───────────────────── */
+function renderProjects() {
+  document.getElementById('projects-row').innerHTML = PROJECTS.map(p => `
+    <div class="proj-card" id="proj-card-${p.id}" onclick="openProject('${p.id}')">
+      <div class="proj-card-fill"></div>
+      ${p.logo ? `<img class="proj-card-logo" src="${p.logo}" alt="${p.name}" onerror="this.style.display='none'">` : ''}
+      <div class="proj-card-gradient"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-num">— ${p.num} —</div>
+        <div class="proj-card-name">${p.name}</div>
+      </div>
+      <div class="proj-card-arrow">→</div>
+    </div>
+  `).join('');
+}
+
+function renderTeam() {
+  document.getElementById('team-grid').innerHTML = TEAM.map(m => `
+    <a class="team-card" href="${m.yt}" target="_blank" rel="noopener">
+      <div class="team-card-img">
+        <img src="${m.img}" alt="${m.name}" onerror="this.style.display='none'">
+      </div>
+      <div class="team-card-body">
+        <div class="team-card-channel">${m.name}</div>
+        <div class="team-card-meta">
+          ${m.thai ? `<span>${m.thai}</span>` : ''}
+          ${m.thai && m.char ? `<span class="dot">·</span>` : ''}
+          ${m.char ? `<span class="char">${m.char}</span>` : ''}
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function renderTabs() {
+  const onAir = PROJECTS.find(p => p.onAir);
+  document.getElementById('air-tabs').innerHTML = PROJECTS.map(p => `
+    <button class="air-tab ${p.id === onAir?.id ? 'active' : ''}" id="tab-${p.id}" onclick="toggleTab('${p.id}')">
+      <span>${p.num}</span>
+      <span class="air-tab-name">${p.name}</span>
+    </button>
+  `).join('');
+}
+
+function renderNews() {
+  const item = (it) => {
+    if (it.vid) {
+      const startParam = it.start ? `?start=${it.start}` : '';
+      return `<div class="news-item">
+        ${it.label ? `<span class="news-item-label">${it.label}</span>` : ''}
+        <iframe src="https://www.youtube.com/embed/${it.vid}${startParam}" title="${it.label || ''}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>`;
+    }
+    return `<div class="news-item placeholder">
+      <div class="ph-label">${it.label}</div>
+      <a class="ph-link" href="${LENLOR_YT_CHANNEL}" target="_blank" rel="noopener">▶ ดูคลิปล่าสุด</a>
+    </div>`;
+  };
+  document.getElementById('news-grid').innerHTML = `
+    <div class="news-row r-2">${NEWS.songs.map(item).join('')}</div>
+    <div class="news-row r-3">${NEWS.clips.map(item).join('')}</div>
+  `;
+}
+
+function renderMods() {
+  document.getElementById('mods-grid').innerHTML = MODS.map(m => `
+    <div class="mod-card">
+      <div class="mod-tag">${m.tag}</div>
+      <div class="mod-name">${m.name}</div>
+      <div class="mod-desc">${m.desc}</div>
+      <a class="mod-dl" href="${m.link}">↓ Download Free</a>
+    </div>
+  `).join('');
+}
+
+/* ─────────────────────
+   MOBILE MENU
+───────────────────── */
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+function mobileNav(fn) {
+  closeMobileMenu();
+  setTimeout(fn, 60);
+}
+
+/* ─────────────────────
+   NAVIGATION
+───────────────────── */
+function goHome() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function scrollToSection(id) {
+  goHome();
+  setTimeout(() => {
+    document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  }, 60);
+}
+
+/* ─────────────────────
+   TABS
+───────────────────── */
+function toggleTab(id) {
+  // NOW ON AIR label is locked to LUSTORIA HOTEL — tab clicks no longer change it.
+  const btn = document.getElementById('tab-' + id);
+  const wasActive = btn.classList.contains('active');
+  document.querySelectorAll('.air-tab').forEach(t => t.classList.remove('active'));
+  if (!wasActive) btn.classList.add('active');
+}
+
+/* ─────────────────────
+   PROJECT DETAIL
+───────────────────── */
+let activeProject = null;
+let activePage = 0;
+
+function openProject(id, noScroll) {
+  const proj = PROJECTS.find(p => p.id === id);
+  if (!proj) return;
+  const expand = document.getElementById('proj-expand');
+  const inner  = expand.querySelector('.proj-expand-inner');
+
+  // Clicking the currently-open project toggles it closed (skip on init).
+  if (!noScroll && activeProject && activeProject.id === proj.id && expand.classList.contains('open')) {
+    closeProject();
+    return;
+  }
+
+  activeProject = proj;
+  activePage = 0;
+
+  // Highlight the active card.
+  document.querySelectorAll('.proj-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('proj-card-' + proj.id)?.classList.add('active');
+
+  // Populate header (no-bg logo with text fallback).
+  const logoEl = document.getElementById('d-logo');
+  const titleLogo = proj.logoTitle || proj.logo;
+  if (titleLogo) {
+    logoEl.src = titleLogo;
+    logoEl.style.display = '';
+    document.getElementById('d-eyebrow').textContent = '';
+    document.getElementById('d-title').textContent = '';
+  } else {
+    logoEl.removeAttribute('src');
+    logoEl.style.display = 'none';
+    document.getElementById('d-eyebrow').textContent = `— PROJECT ${proj.num} —`;
+    document.getElementById('d-title').textContent = proj.name;
+  }
+  document.getElementById('d-sub').textContent = proj.subtitle || '';
+
+  buildCharGrid(proj, activePage);
+  buildPagination(proj);
+
+  expand.classList.add('open');
+
+  // Re-trigger the inner slide-in animation on every open/switch.
+  inner.classList.remove('slide-in');
+  void inner.offsetWidth;
+  inner.classList.add('slide-in');
+
+  if (!noScroll) {
+    setTimeout(() => {
+      const headerH = document.getElementById('header')?.offsetHeight || 54;
+      const top = expand.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 80);
+  }
+}
+
+function closeProject() {
+  const expand = document.getElementById('proj-expand');
+  expand.classList.remove('open');
+  activeProject = null;
+  document.querySelectorAll('.proj-card').forEach(c => c.classList.remove('active'));
+}
+
+function buildCharGrid(proj, page) {
+  const PER_ROW = 8;
+  const rows = proj.rows || 3;
+  const perPage = PER_ROW * rows;
+  const offset = (page || 0) * perPage;
+
+  let html = '';
+  for (let r = 0; r < rows; r++) {
+    html += '<div class="char-row">';
+    for (let c = 0; c < PER_ROW; c++) {
+      const localIdx = r * PER_ROW + c;
+      const globalIdx = offset + localIdx;
+      const ch = proj.chars[globalIdx];
+      if (ch) {
+        html += `<div class="c-card" onclick="openChar(${globalIdx})">
+          <img src="${ch.img}" alt="${ch.name}" onerror="this.style.display='none'">
+        </div>`;
+      } else {
+        html += `<div class="c-card empty"></div>`;
+      }
+    }
+    html += '</div>';
+  }
+  document.getElementById('char-section').innerHTML = html;
+}
+
+function buildPagination(proj) {
+  const el = document.getElementById('char-pagination');
+  const pages = proj.pages || 1;
+  if (pages <= 1) { el.innerHTML = ''; return; }
+  let html = '';
+  for (let i = 0; i < pages; i++) {
+    html += `<button class="page-dot ${i === activePage ? 'active' : ''}" onclick="setProjPage(${i})">${String(i+1).padStart(2,'0')}</button>`;
+  }
+  el.innerHTML = html;
+}
+
+function setProjPage(p) {
+  if (!activeProject) return;
+  activePage = p;
+  buildCharGrid(activeProject, activePage);
+  buildPagination(activeProject);
+}
+
+/* ─────────────────────
+   CHARACTER MODAL
+───────────────────── */
+function openChar(idx) {
+  if (!activeProject) return;
+  const ch = activeProject.chars[idx];
+  if (!ch) return;
+
+  const img = document.getElementById('m-img');
+  img.style.display = '';
+  img.src = ch.img || '';
+
+  document.getElementById('m-roman').textContent = ch.roman ? `CARD ${ch.roman}` : '';
+  document.getElementById('m-name').textContent  = ch.name  || '';
+  document.getElementById('m-thai').textContent  = ch.thai  && ch.thai !== '-' ? ch.thai : '';
+  document.getElementById('m-en').textContent    = ch.en    && ch.en   !== '-' ? ch.en   : '';
+
+  const show = v => v !== undefined && v !== null && v !== '' && v !== '-';
+  const stats = [];
+  if (show(ch.age))        stats.push(['Age',  ch.age]);
+  if (show(ch.role))       stats.push(['Role', ch.role]);
+  if (show(ch.profession)) stats.push(['Job',  ch.profession]);
+  if (show(ch.head))       stats.push(['Head', ch.head]);
+  if (show(ch.sin))        stats.push(['Sin',  ch.sin]);
+  document.getElementById('m-stats').innerHTML = stats.map(([k,v]) =>
+    `<div><span class="k">${k}</span><span class="v">${v}</span></div>`
+  ).join('');
+
+  let player = '';
+  const channel = show(ch.ytName) ? ch.ytName : (show(ch.player) ? ch.player : '');
+  if (channel) {
+    player += `<div class="modal-player-line">โดย <strong>${channel}</strong></div>`;
+  }
+  if (ch.yt) {
+    player += `<a class="modal-player-yt" href="${ch.yt}" target="_blank" rel="noopener">▶ YouTube</a>`;
+  }
+  document.getElementById('m-player').innerHTML = player;
+  document.getElementById('m-tag').textContent = ch.tag || '';
+
+  document.getElementById('char-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('char-modal').classList.remove('open');
+}
+
+function modalBgClick(e) {
+  if (e.target === document.getElementById('char-modal')) closeModal();
+}
+
+/* ─────────────────────
+   TRACK NUMBER MODAL
+───────────────────── */
+function openTrackModal() {
+  document.getElementById('track-modal').classList.add('open');
+}
+function closeTrackModal() {
+  document.getElementById('track-modal').classList.remove('open');
+}
+function trackModalBgClick(e) {
+  if (e.target === document.getElementById('track-modal')) closeTrackModal();
+}
+
+/* ─────────────────────
+   TRACK
+───────────────────── */
+function doTrack() {
+  const fn = document.getElementById('tf-first').value.trim();
+  const ln = document.getElementById('tf-last').value.trim();
+  const res = document.getElementById('track-result');
+  const txt = document.getElementById('track-result-text');
+  if (!fn && !ln) return;
+  res.classList.add('show');
+  txt.textContent = `ไม่พบข้อมูลสำหรับ "${fn} ${ln}" — กรุณาตรวจสอบชื่ออีกครั้ง`;
+}
+
+/* ─────────────────────
+   MUSIC PLAYER
+───────────────────── */
+const TRACKS = [
+  { title: 'GOAL SET! instrumental',      src: 'song/METALS.mp3' },
+  { title: 'DEATH ILLUSION instrumental', src: 'song/EX_LUSTORIA(MT).mp3' }
+];
+let trackIdx = 0;
+
+function loadTrack(i, autoplay) {
+  const n = TRACKS.length;
+  trackIdx = ((i % n) + n) % n;
+  const audio = document.getElementById('mp-audio');
+  audio.src = TRACKS[trackIdx].src;
+  document.getElementById('mp-title').textContent = TRACKS[trackIdx].title;
+  if (autoplay) audio.play().catch(() => {});
+}
+
+function togglePlay() {
+  const audio = document.getElementById('mp-audio');
+  if (audio.paused) {
+    audio.play().catch(() => {});
+  } else {
+    audio.pause();
+  }
+}
+
+function nextTrack() { loadTrack(trackIdx + 1, true); }
+function prevTrack() { loadTrack(trackIdx - 1, true); }
+function hidePlayer() {
+  document.getElementById('mp-audio').pause();
+  document.getElementById('music-player').classList.add('hidden');
+}
+
+function applyVolume(v) {
+  const audio = document.getElementById('mp-audio');
+  const icon  = document.getElementById('mp-vol-icon');
+  const value = document.getElementById('mp-vol-value');
+  const vol   = Math.max(0, Math.min(100, +v));
+  audio.volume = vol / 100;
+  icon.textContent = vol === 0 ? '🔇' : (vol < 50 ? '🔉' : '🔊');
+  value.textContent = vol;
+  try { localStorage.setItem('mp-vol', vol); } catch (e) {}
+}
+
+function toggleMute() {
+  const slider = document.getElementById('mp-vol-slider');
+  if (+slider.value > 0) {
+    slider.dataset.prev = slider.value;
+    slider.value = 0;
+  } else {
+    slider.value = slider.dataset.prev || 50;
+  }
+  applyVolume(slider.value);
+}
+
+(function initPlayer() {
+  const audio = document.getElementById('mp-audio');
+  const playBtn = document.getElementById('mp-play');
+  const volSlider = document.getElementById('mp-vol-slider');
+
+  loadTrack(0, false);
+
+  // Restore saved volume (default 50%).
+  let savedVol = 50;
+  try { const s = localStorage.getItem('mp-vol'); if (s !== null) savedVol = +s; } catch (e) {}
+  volSlider.value = savedVol;
+  applyVolume(savedVol);
+
+  volSlider.addEventListener('input', e => applyVolume(e.target.value));
+
+  audio.addEventListener('play',  () => { playBtn.textContent = '⏸'; });
+  audio.addEventListener('pause', () => { playBtn.textContent = '▶'; });
+  audio.addEventListener('ended', () => { loadTrack(trackIdx + 1, true); });
+
+  // Try autoplay; browsers usually block it. Fall back to starting on the
+  // user's first interaction with the page.
+  audio.play().catch(() => {
+    const kick = () => {
+      audio.play().catch(() => {});
+      window.removeEventListener('click',   kick, true);
+      window.removeEventListener('keydown', kick, true);
+      window.removeEventListener('touchstart', kick, true);
+    };
+    window.addEventListener('click',   kick, true);
+    window.addEventListener('keydown', kick, true);
+    window.addEventListener('touchstart', kick, true);
+  });
+})();
+
+/* ─────────────────────
+   INIT
+───────────────────── */
+renderProjects();
+renderNews();
+renderTeam();
+renderTabs();
+renderMods();
+
+// Auto-open the on-air project (Lustoria) so its character grid is visible on load.
+openProject('lustoria', true);
+</script>
+</body>
+</html>
