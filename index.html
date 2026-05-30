@@ -1493,29 +1493,25 @@ body {
   .proj-detail-sub   { font-size: 12px; }
   .proj-divider      { width: auto; max-width: calc(100% - 16px); }
 
-  /* Character cards: keep 8/row but let each row SCROLL horizontally */
+  /* Character cards on mobile: 8 cards wrap to 4 per row (2 visual rows per logical row) — keeps cards readable */
   .char-section {
     padding: 0;
     overflow: visible;
   }
   .char-row {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    padding: 6px 14px;
-    gap: 4px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 4px 8px;
+    gap: 6px 4px;
+    overflow: visible;
   }
-  .char-row::-webkit-scrollbar { display: none; }
   .c-card {
-    width: 72px;
-    height: 130px;
-    flex: 0 0 72px;
-    scroll-snap-align: start;
+    width: calc((100% - 12px) / 4);
+    max-width: 85px;
+    height: auto;
+    aspect-ratio: 88 / 158;
+    flex: 0 0 auto;
   }
 
   /* Pagination */
