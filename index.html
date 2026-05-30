@@ -946,6 +946,21 @@ body {
 }
 .mod-dl:hover { background: var(--orange); color: var(--dark); }
 
+.mod-status {
+  display: inline-block;
+  border: 1px dashed var(--orange);
+  color: var(--orange);
+  padding: 6px 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  font-family: var(--EN);
+  opacity: .72;
+  cursor: not-allowed;
+  user-select: none;
+}
+
 /* ============================
    TRACK NUMBER PAGE
 ============================ */
@@ -1895,9 +1910,9 @@ const NEWS = {
 const LENLOR_YT_CHANNEL = 'https://www.youtube.com/@Lenlorteam';
 
 const MODS = [
-  {tag:'RESOURCE PACK', name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
-  {tag:'DATA PACK',     name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
-  {tag:'RESOURCE PACK', name:'Mod Name', desc:'รายละเอียดม็อดสามารถแก้ไขได้ใน index.html บรรทัด MODS', link:'#'},
+  { tag:'Mod',      name:'Lenlorcraft Skin',  desc:'ม็อดสำหรับเปลี่ยนสกินได้ทุกรูปแบบและขนาดไม่จำกัด', status:'coming soon' },
+  { tag:'Mod',      name:'LenlorCraft Phone', desc:'ม็อดมือถือพร้อมฟังก์ชั่นมากมาย',                       status:'coming soon' },
+  { tag:'Launcher', name:'LENLOR LAUNCHER',   desc:'ลันเชอร์โปรเจคในเครือ minecraft',                       status:'coming soon' },
 ];
 
 /* ─────────────────────
@@ -1972,7 +1987,9 @@ function renderMods() {
       <div class="mod-tag">${m.tag}</div>
       <div class="mod-name">${m.name}</div>
       <div class="mod-desc">${m.desc}</div>
-      <a class="mod-dl" href="${m.link}">↓ Download Free</a>
+      ${m.status === 'coming soon'
+        ? `<span class="mod-status">Coming Soon</span>`
+        : `<a class="mod-dl" href="${m.link}">Download Free</a>`}
     </div>
   `).join('');
 }
