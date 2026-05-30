@@ -662,6 +662,7 @@ body {
   font-style: normal;
   color: var(--orange);
 }
+.air-text.tab-selected .air-text-prefix { display: none; }
 
 /* Tabs */
 .air-tabs {
@@ -1771,7 +1772,7 @@ body {
 <div id="now-on-air">
   <div class="air-label">
     <img class="air-thumb" id="air-thumb" src="CARD/4card IV.png" alt="" onerror="this.style.display='none'">
-    <div class="air-text">NOW ON AIR &nbsp;|&nbsp; <em id="air-name">LUSTORIA HOTEL</em></div>
+    <div class="air-text"><span class="air-text-prefix">NOW ON AIR &nbsp;|&nbsp; </span><em id="air-name">LUSTORIA HOTEL</em></div>
   </div>
   <div class="air-tabs" id="air-tabs"></div>
 </div>
@@ -2198,19 +2199,22 @@ function scrollToSection(id) {
    TABS
 ───────────────────── */
 function toggleTab(id) {
-  // Tab click swaps the NOW ON AIR label to that project's name.
+  // Tab click → show ONLY the project's name (hide "NOW ON AIR | " prefix).
+  // Clicking the active tab again → revert to default "NOW ON AIR | <on-air project>".
   const btn = document.getElementById('tab-' + id);
   const wasActive = btn.classList.contains('active');
   document.querySelectorAll('.air-tab').forEach(t => t.classList.remove('active'));
-  const onAirName = document.getElementById('air-name');
+  const airText  = document.querySelector('.air-text');
+  const airName  = document.getElementById('air-name');
   if (wasActive) {
-    // Toggling the active tab off → revert label to the default on-air project.
+    airText.classList.remove('tab-selected');
     const def = PROJECTS.find(p => p.onAir);
-    if (def) onAirName.textContent = def.name;
+    if (def) airName.textContent = def.name;
   } else {
     btn.classList.add('active');
+    airText.classList.add('tab-selected');
     const proj = PROJECTS.find(p => p.id === id);
-    if (proj) onAirName.textContent = proj.name;
+    if (proj) airName.textContent = proj.name;
   }
 }
 
