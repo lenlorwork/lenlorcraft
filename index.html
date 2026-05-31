@@ -2933,10 +2933,58 @@ function trToggleSubmit() {
   document.getElementById('tr-submit').disabled = !ok;
 }
 
-function submitTeamRegister() {
+// File limits: 10 MB per file, 5 files max — keeps payload under Apps Script's request size cap.
+const TR_MAX_FILE_BYTES = 10 * 1024 * 1024;
+const TR_MAX_FILES      = 5;
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result || '';
+      const base64 = String(result).split(',')[1] || '';
+      resolve({ name: file.name, type: file.type || 'application/octet-stream', data: base64 });
+    };
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+async function submitTeamRegister() {
   if (!document.getElementById('tr-accept').checked) return;
   const submitBtn = document.getElementById('tr-submit');
   const get = id => document.getElementById(id).value.trim();
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'กำลังส่ง...';
+
+  // Collect + validate files
+  const rawFiles = [...(document.getElementById('tr-file').files || [])];
+  if (rawFiles.length > TR_MAX_FILES) {
+    alert(`อัปโหลดได้สูงสุด ${TR_MAX_FILES} ไฟล์`);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'ส่งใบสมัคร';
+    return;
+  }
+  const tooBig = rawFiles.find(f => f.size > TR_MAX_FILE_BYTES);
+  if (tooBig) {
+    alert(`ไฟล์ "${tooBig.name}" ใหญ่เกิน 10 MB — ลองย่อหรือลบออกก่อนนะ`);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'ส่งใบสมัคร';
+    return;
+  }
+
+  let filesB64 = [];
+  try {
+    filesB64 = await Promise.all(rawFiles.map(readFileAsBase64));
+  } catch (err) {
+    console.error('[Team Register] file read failed:', err);
+    alert('อ่านไฟล์แนบไม่ได้ ลองอีกครั้งหรือลบไฟล์ที่มีปัญหาออก');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'ส่งใบสมัคร';
+    return;
+  }
+
   const data = {
     submittedAt: new Date().toISOString(),
     nickname: get('tr-nickname'),
@@ -2947,11 +2995,8 @@ function submitTeamRegister() {
     pc:       get('tr-pc'),
     skill:    get('tr-skill'),
     intro:    get('tr-intro'),
-    files:    [...(document.getElementById('tr-file').files || [])].map(f => f.name).join(', ')
+    files:    filesB64
   };
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'กำลังส่ง...';
 
   const finish = () => {
     document.getElementById('tr-success').classList.add('show');
@@ -2962,14 +3007,13 @@ function submitTeamRegister() {
   };
 
   if (!TEAM_REGISTER_ENDPOINT) {
-    // No endpoint configured yet — log to console and show success UI.
     console.log('[Team Register] submission (endpoint not set):', data);
     finish();
     return;
   }
 
   // Apps Script Web App doesn't speak CORS — use no-cors + text/plain so the
-  // browser doesn't send a preflight. The response can't be read but the
+  // browser doesn't send a preflight. Response can't be read but the
   // doPost handler on the Apps Script side will still receive the body.
   fetch(TEAM_REGISTER_ENDPOINT, {
     method: 'POST',
