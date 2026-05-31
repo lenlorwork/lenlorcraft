@@ -87,8 +87,11 @@ body {
   background: var(--orange);
   color: var(--dark);
   padding: 7px 14px;
-  letter-spacing: .1em;
-  font-size: 13px;
+  letter-spacing: .02em;
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: none;
   transition: background .2s, transform .2s;
 }
 .nav-btn-cta:hover {
@@ -100,6 +103,10 @@ body {
 .mobile-menu .mobile-cta {
   background: var(--orange);
   color: var(--dark);
+  font-family: var(--TH);
+  letter-spacing: .02em;
+  text-transform: none;
+  font-size: 15px;
 }
 .mobile-menu .mobile-cta:hover,
 .mobile-menu .mobile-cta:active {
@@ -1389,11 +1396,11 @@ body {
   object-fit: contain;
 }
 .tr-title {
-  font-family: var(--EN);
-  font-size: clamp(24px, 4vw, 38px);
-  font-weight: 900;
-  letter-spacing: .04em;
-  line-height: 1.15;
+  font-family: var(--TH);
+  font-size: clamp(26px, 4.5vw, 42px);
+  font-weight: 700;
+  letter-spacing: .01em;
+  line-height: 1.2;
   text-align: center;
   margin-bottom: 42px;
   color: var(--cream);
@@ -1401,17 +1408,16 @@ body {
 
 .tr-section {
   margin-bottom: 26px;
-  padding: 22px 24px 24px;
+  padding: 24px 26px 26px;
   background: var(--dark2);
   border: 1px solid var(--border);
 }
 .tr-subtitle {
-  font-family: var(--EN);
-  font-size: 13px;
+  font-family: var(--TH);
+  font-size: 17px;
   font-weight: 700;
-  letter-spacing: .25em;
+  letter-spacing: .01em;
   color: var(--orange);
-  text-transform: uppercase;
   margin-bottom: 14px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
@@ -1419,7 +1425,7 @@ body {
 .tr-list {
   list-style: none;
   font-family: var(--TH);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.75;
   color: var(--cream);
   padding: 0;
@@ -1448,24 +1454,79 @@ body {
 }
 .tr-list-divider { height: 14px; }
 
+/* Role cards (positions wanted) */
+.tr-roles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.tr-role {
+  display: flex;
+  gap: 14px;
+  padding: 18px 18px;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  align-items: flex-start;
+  transition: border-color .2s, transform .2s, background .2s;
+}
+.tr-role:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+  background: #1a1108;
+}
+.tr-role-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+.tr-role-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  display: block;
+}
+.tr-role-body { flex: 1; min-width: 0; }
+.tr-role-name {
+  font-family: var(--EN);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.tr-role-desc {
+  font-family: var(--TH);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cream);
+}
+.tr-role-other {
+  border-style: dashed;
+}
+
 .tr-ack {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 18px 22px;
   background: var(--dark2);
   border: 1px solid var(--orange);
   margin-bottom: 36px;
   cursor: pointer;
   font-family: var(--TH);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--cream);
   user-select: none;
 }
 .tr-ack input {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   accent-color: var(--orange);
   flex-shrink: 0;
@@ -1473,24 +1534,23 @@ body {
 
 .tr-form-note {
   font-family: var(--TH);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
-  margin: -8px 0 22px;
+  margin: -6px 0 24px;
 }
 
 .tr-field {
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 .tr-field-label {
   display: block;
-  font-family: var(--EN);
-  font-size: 10px;
+  font-family: var(--TH);
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: .22em;
+  letter-spacing: .01em;
   color: var(--orange);
-  text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .tr-field-label .th {
   display: inline-block;
@@ -1509,8 +1569,8 @@ body {
   border: 1px solid var(--border);
   color: var(--cream);
   font-family: var(--TH);
-  font-size: 13px;
-  padding: 11px 14px;
+  font-size: 15px;
+  padding: 12px 14px;
   outline: none;
   transition: border-color .2s;
   resize: vertical;
@@ -1518,13 +1578,13 @@ body {
 }
 .tr-field input:focus,
 .tr-field textarea:focus { border-color: var(--orange); }
-.tr-field textarea { min-height: 160px; line-height: 1.65; }
+.tr-field textarea { min-height: 180px; line-height: 1.65; }
 .tr-field-note {
   display: block;
   font-family: var(--TH);
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
-  margin-top: 5px;
+  margin-top: 6px;
 }
 .tr-field input[type="file"] {
   display: block;
@@ -1558,11 +1618,10 @@ body {
   background: var(--orange);
   color: var(--dark);
   border: none;
-  font-family: var(--EN);
-  font-size: 13px;
+  font-family: var(--TH);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: .22em;
-  text-transform: uppercase;
+  letter-spacing: .02em;
   padding: 16px;
   margin-top: 14px;
   cursor: pointer;
@@ -1604,17 +1663,29 @@ body {
 /* Mobile tweaks for register page */
 @media (max-width: 720px) {
   .tr-inner { padding: 20px 14px 60px; }
-  .tr-logo { width: 90px; height: 90px; margin-top: 12px; }
-  .tr-title { font-size: 22px; margin-bottom: 28px; }
-  .tr-section { padding: 16px 16px 18px; }
-  .tr-subtitle { font-size: 11px; letter-spacing: .18em; }
-  .tr-list { font-size: 12px; line-height: 1.6; }
+  .tr-logo { width: 96px; height: 96px; margin-top: 12px; }
+  .tr-title { font-size: 24px; margin-bottom: 30px; }
+  .tr-section { padding: 18px 18px 20px; }
+  .tr-subtitle { font-size: 15px; }
+  .tr-list { font-size: 13px; line-height: 1.65; }
   .tr-list li { padding-left: 16px; }
-  .tr-ack { font-size: 12px; padding: 12px 14px; }
-  .tr-field-label { font-size: 9px; }
+  .tr-ack { font-size: 14px; padding: 14px 16px; }
+  .tr-field-label { font-size: 13px; }
   .tr-field input[type="text"],
-  .tr-field textarea { font-size: 12px; padding: 10px 12px; }
-  .tr-submit { font-size: 11px; padding: 14px; letter-spacing: .18em; }
+  .tr-field textarea { font-size: 14px; padding: 11px 12px; }
+  .tr-submit { font-size: 15px; padding: 14px; }
+
+  /* Role cards: 3 -> 2 columns on mobile */
+  .tr-roles { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tr-role { padding: 14px 14px; gap: 12px; }
+  .tr-role-icon { width: 36px; height: 36px; }
+  .tr-role-icon svg { width: 20px; height: 20px; }
+  .tr-role-name { font-size: 12px; letter-spacing: .1em; }
+  .tr-role-desc { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  .tr-roles { grid-template-columns: 1fr; }
 }
 
 /* ============================
@@ -2062,14 +2133,67 @@ body {
 
     <section class="tr-section">
       <h2 class="tr-subtitle">ตำแหน่งที่ต้องการ (เป็นพิเศษ)</h2>
-      <ul class="tr-list">
-        <li><strong>EDITOR</strong> นำฟุตเทจที่ได้รับมาตัดต่อ ใส่ซับ เอฟเฟคต่าง ๆ</li>
-        <li><strong>DEVELOPER</strong> ความสามารถในการเขียนม็อด เปิดเซิฟเวอร์ และแก้ปัญหาทางเทคนิคหรือ coding</li>
-        <li><strong>BUILDER</strong> มีจินตนาการเพ้อฝัน ความสามารถในการสร้างสรรค์จินตนาการของคุณให้เป็นจริง</li>
-        <li><strong>CAMERAMAN</strong> ถ่ายงานต่าง ๆ รู้มุมกล้อง หันซ้ายไม่สวยเลยน้อง หันขวาดีกว่า</li>
-        <li><strong>ANIMATOR</strong> ความสามารถในการใช้ BBS mod, Mine Imator หรือ Blender</li>
-        <li>และด้านอื่น ๆ ที่คุณอยากเสนอเรา!</li>
-      </ul>
+      <div class="tr-roles">
+        <div class="tr-role">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.64 7.64A3.97 3.97 0 0 0 10 6c0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64ZM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2Zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2Zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5ZM19 3l-6 6 2 2 7-7V3Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">EDITOR</div>
+            <div class="tr-role-desc">นำฟุตเทจที่ได้รับมาตัดต่อ ใส่ซับ เอฟเฟคต่าง ๆ</div>
+          </div>
+        </div>
+
+        <div class="tr-role">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">DEVELOPER</div>
+            <div class="tr-role-desc">ความสามารถในการเขียนม็อด เปิดเซิฟเวอร์ และแก้ปัญหาทางเทคนิคหรือ coding</div>
+          </div>
+        </div>
+
+        <div class="tr-role">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.4 1.4 6.5v11L12 22.6l10.6-5.1v-11L12 1.4Zm-1 18.4-8-3.8V8.8l8 3.8v7.2Zm1-9.4L4 6.6l8-3.8 8 3.8-8 3.8Zm9 5.6-8 3.8v-7.2l8-3.8v7.2Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">BUILDER</div>
+            <div class="tr-role-desc">มีจินตนาการเพ้อฝัน ความสามารถในการสร้างสรรค์จินตนาการของคุณให้เป็นจริง</div>
+          </div>
+        </div>
+
+        <div class="tr-role">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9Zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-2c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">CAMERAMAN</div>
+            <div class="tr-role-desc">ถ่ายงานต่าง ๆ รู้มุมกล้อง หันซ้ายไม่สวยเลยน้อง หันขวาดีกว่า</div>
+          </div>
+        </div>
+
+        <div class="tr-role">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4Zm-7 5V8.5l5.5 3.5L10 15.5Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">ANIMATOR</div>
+            <div class="tr-role-desc">ความสามารถในการใช้ BBS mod, Mine Imator หรือ Blender</div>
+          </div>
+        </div>
+
+        <div class="tr-role tr-role-other">
+          <div class="tr-role-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 14.39 9.42 22 12l-7.61 2.58L12 22l-2.39-7.42L2 12l7.61-2.58L12 2Z"/></svg>
+          </div>
+          <div class="tr-role-body">
+            <div class="tr-role-name">OTHER</div>
+            <div class="tr-role-desc">และด้านอื่น ๆ ที่คุณอยากเสนอเรา!</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <label class="tr-ack">
