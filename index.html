@@ -83,6 +83,30 @@ body {
 }
 .nav-btn:hover { color: var(--orange); }
 
+.nav-btn-cta {
+  background: var(--orange);
+  color: var(--dark);
+  padding: 7px 14px;
+  letter-spacing: .1em;
+  font-size: 13px;
+  transition: background .2s, transform .2s;
+}
+.nav-btn-cta:hover {
+  background: var(--orange2);
+  color: var(--dark);
+  transform: translateY(-1px);
+}
+
+.mobile-menu .mobile-cta {
+  background: var(--orange);
+  color: var(--dark);
+}
+.mobile-menu .mobile-cta:hover,
+.mobile-menu .mobile-cta:active {
+  background: var(--orange2);
+  color: var(--dark);
+}
+
 .nav-social {
   display: flex;
   align-items: center;
@@ -1344,6 +1368,256 @@ body {
 }
 
 /* ============================
+   TEAM REGISTER PAGE
+============================ */
+#page-teamregister {
+  min-height: 100vh;
+  padding-top: 54px;
+  padding-bottom: 56px;
+  background: var(--dark);
+}
+.tr-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 26px 24px 60px;
+}
+.tr-logo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto 22px;
+  object-fit: contain;
+}
+.tr-title {
+  font-family: var(--EN);
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 900;
+  letter-spacing: .04em;
+  line-height: 1.15;
+  text-align: center;
+  margin-bottom: 42px;
+  color: var(--cream);
+}
+
+.tr-section {
+  margin-bottom: 26px;
+  padding: 22px 24px 24px;
+  background: var(--dark2);
+  border: 1px solid var(--border);
+}
+.tr-subtitle {
+  font-family: var(--EN);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .25em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.tr-list {
+  list-style: none;
+  font-family: var(--TH);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--cream);
+  padding: 0;
+  margin: 0;
+}
+.tr-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+}
+.tr-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  background: var(--orange);
+  transform: rotate(45deg);
+}
+.tr-list strong {
+  font-family: var(--EN);
+  color: var(--orange);
+  letter-spacing: .08em;
+  margin-right: 4px;
+}
+.tr-list-divider { height: 14px; }
+
+.tr-ack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--dark2);
+  border: 1px solid var(--orange);
+  margin-bottom: 36px;
+  cursor: pointer;
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  user-select: none;
+}
+.tr-ack input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--orange);
+  flex-shrink: 0;
+}
+
+.tr-form-note {
+  font-family: var(--TH);
+  font-size: 12px;
+  color: var(--muted);
+  margin: -8px 0 22px;
+}
+
+.tr-field {
+  display: block;
+  margin-bottom: 18px;
+}
+.tr-field-label {
+  display: block;
+  font-family: var(--EN);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.tr-field-label .th {
+  display: inline-block;
+  margin-left: 8px;
+  font-family: var(--TH);
+  font-size: 11px;
+  letter-spacing: 0;
+  color: var(--muted);
+  text-transform: none;
+  font-weight: 400;
+}
+.tr-field input[type="text"],
+.tr-field textarea {
+  width: 100%;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  font-family: var(--TH);
+  font-size: 13px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color .2s;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.tr-field input:focus,
+.tr-field textarea:focus { border-color: var(--orange); }
+.tr-field textarea { min-height: 160px; line-height: 1.65; }
+.tr-field-note {
+  display: block;
+  font-family: var(--TH);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.tr-field input[type="file"] {
+  display: block;
+  width: 100%;
+  font-family: var(--TH);
+  color: var(--cream);
+  font-size: 12px;
+  padding: 8px 0;
+  border: 1px dashed var(--border);
+  background: var(--dark);
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.tr-field input[type="file"]::-webkit-file-upload-button {
+  background: var(--orange);
+  color: var(--dark);
+  border: none;
+  font-family: var(--EN);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.tr-submit {
+  display: block;
+  width: 100%;
+  background: var(--orange);
+  color: var(--dark);
+  border: none;
+  font-family: var(--EN);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 16px;
+  margin-top: 14px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.tr-submit:hover:not(:disabled) { background: var(--orange2); }
+.tr-submit:disabled {
+  background: var(--border);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.tr-success {
+  display: none;
+  background: rgba(255,137,82,.08);
+  border: 1px solid var(--orange);
+  padding: 30px 24px;
+  margin-top: 24px;
+  text-align: center;
+  font-family: var(--TH);
+  font-size: 14px;
+  color: var(--cream);
+}
+.tr-success.show { display: block; }
+.tr-success-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--dark);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Mobile tweaks for register page */
+@media (max-width: 720px) {
+  .tr-inner { padding: 20px 14px 60px; }
+  .tr-logo { width: 90px; height: 90px; margin-top: 12px; }
+  .tr-title { font-size: 22px; margin-bottom: 28px; }
+  .tr-section { padding: 16px 16px 18px; }
+  .tr-subtitle { font-size: 11px; letter-spacing: .18em; }
+  .tr-list { font-size: 12px; line-height: 1.6; }
+  .tr-list li { padding-left: 16px; }
+  .tr-ack { font-size: 12px; padding: 12px 14px; }
+  .tr-field-label { font-size: 9px; }
+  .tr-field input[type="text"],
+  .tr-field textarea { font-size: 12px; padding: 10px 12px; }
+  .tr-submit { font-size: 11px; padding: 14px; letter-spacing: .18em; }
+}
+
+/* ============================
    FOOTER
 ============================ */
 #footer {
@@ -1611,6 +1885,7 @@ body {
 ══════════════════════════════ -->
 <div id="header">
   <nav class="nav-group">
+    <button class="nav-btn nav-btn-cta" onclick="goPage('teamregister')">สมัครเข้าทีม</button>
     <button class="nav-btn" onclick="scrollToSection('projects-section')">Project</button>
     <button class="nav-btn" onclick="scrollToSection('news-section')">News</button>
     <button class="nav-btn" onclick="scrollToSection('team-section')">Our Team</button>
@@ -1647,6 +1922,7 @@ body {
      MOBILE MENU (drops down on small screens)
 ══════════════════════════════ -->
 <div id="mobile-menu" class="mobile-menu">
+  <button class="mobile-cta" onclick="mobileNav(() => goPage('teamregister'))">สมัครเข้าทีม</button>
   <button onclick="mobileNav(() => scrollToSection('projects-section'))">Project</button>
   <button onclick="mobileNav(() => scrollToSection('news-section'))">News</button>
   <button onclick="mobileNav(() => scrollToSection('team-section'))">Our Team</button>
@@ -1738,6 +2014,129 @@ body {
     <button class="back-btn" onclick="goHome()">← Back</button>
     <div class="section-eyebrow" style="margin-bottom:28px;">— Free Mods —</div>
     <div class="mods-grid" id="mods-grid"></div>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ══════════════════════════════
+     PAGE: TEAM REGISTER (/teamregister)
+══════════════════════════════ -->
+<div id="page-teamregister" class="page">
+  <div class="tr-inner">
+    <button class="back-btn" style="margin:0 0 8px;" onclick="goHome()">← Back</button>
+    <img class="tr-logo" src="logo_lenlor_t.png" alt="LENLOR">
+    <h1 class="tr-title">ใบสมัครร่วมทีมเล่นรอคราฟ!</h1>
+
+    <section class="tr-section">
+      <h2 class="tr-subtitle">คุณสมบัติ</h2>
+      <ul class="tr-list">
+        <li>ผู้สมัครต้องมีอายุมากกว่า 15 ปีเป็นต้นไป หากตกลงสมัครจะถือว่าผู้สมัครได้รับการยินยอมจากผู้ปกครองแล้วทุกกรณี</li>
+        <li>สามารถรับแรงกดดันที่เกิดขึ้นจากการทำโปรเจคต่าง ๆ ได้</li>
+        <li>กล้าแสดงความคิดเห็นและช่วยทีมปรับปรุงผลงาน</li>
+        <li>มีความรับผิดชอบต่องานที่ได้รับและจัดทำหรือประสานงานให้เสร็จสิ้น</li>
+        <li>มีทักษะในการแก้ไขปัญหาเฉพาะหน้า</li>
+        <li>มีทักษะความยืดหยุ่นทางอารมณ์ สามารถจริงจังและปรับตัว เฮฮาไปกับทีมได้</li>
+        <li>มีเวลาเพียงพอหากตกลงร่วมการทำโปรเจคนั้น ๆ (ทุกการทำงานจะมีการเลือกทีใหม่ในงานแต่ละงาน)</li>
+        <li>การเปิดใจกว้าง พร้อมที่จะรับฟัง พิจารณา และเรียนรู้ความคิดเห็น ข้อมูล หรือมุมมองใหม่ๆ โดยเฉพาะอย่างยิ่งเมื่อสิ่งเหล่านั้นแตกต่างหรือขัดแย้งกับความเชื่อและประสบการณ์เดิมของตนเอง (Open mind)</li>
+        <li>ไม่นำข้อมูลภายในที่ได้รับทราบเปิดเผยสู่บุคคลภายนอก ทุกกรณี</li>
+      </ul>
+    </section>
+
+    <section class="tr-section">
+      <h2 class="tr-subtitle">สิ่งที่จะได้รับจาก LENLORCRAFT</h2>
+      <ul class="tr-list">
+        <li>ประสบการณ์การทำเซิฟเวอร์ minecraft roleplay จากทีมที่มีประสบการณ์</li>
+        <li>การสนับสนุนจากทีมพาร์ธเนอร์ต่าง ๆ ของเล่นรอคราฟ</li>
+        <li>พื้นที่ที่ได้ลองทำกิจกรรมหลาย ๆ อย่างที่ไม่เคยทำมาก่อนร่วมกัน</li>
+        <li>ได้เก็บผลงานต่าง ๆ ไปประกอบการทำงานหรือพอร์ทในอนาคต เช่น การออกสินค้า การออกบูธ ตัดต่อ การแสดงออก</li>
+        <li>ค่าตอบแทนตามผลประกอบการของโปรเจค เช่น เงิน ดิจิทัลโปรดักส์ (สกิน, ฟิกเกอร์ หรืออื่น ๆ) ประสบการณ์ทำงาน โรลเพลย์</li>
+        <li>ค่าสนับสนุนเซิฟเวอร์ฟรี ไม่เสียค่าใช้จ่าย (กรณีโปรเจคสาธารณะของค่าย ที่มีการเปิดรับทั่วไป เช่น The Nemorphine)</li>
+      </ul>
+      <div class="tr-list-divider"></div>
+      <ul class="tr-list">
+        <li>เลเวี้ยสที่จะชวนคุณไปกินข้าวทุกอาทิตย์ (น้อง วันนี้ชาบูป่าว)</li>
+        <li>สวัสดิการเค้กวันเกิด (ถ้าไม่ลืม เค้กเซเว่นก็ถือว่านับนะ)</li>
+        <li>สวัสดิการชวนไปเที่ยว (แต่คุณจ่ายตังเอง เลี้ยงพี่ ๆ ด้วยนะน้อง พี่ยังดูแลตัวเองไม่ได้เลย)</li>
+      </ul>
+    </section>
+
+    <section class="tr-section">
+      <h2 class="tr-subtitle">ตำแหน่งที่ต้องการ (เป็นพิเศษ)</h2>
+      <ul class="tr-list">
+        <li><strong>EDITOR</strong> นำฟุตเทจที่ได้รับมาตัดต่อ ใส่ซับ เอฟเฟคต่าง ๆ</li>
+        <li><strong>DEVELOPER</strong> ความสามารถในการเขียนม็อด เปิดเซิฟเวอร์ และแก้ปัญหาทางเทคนิคหรือ coding</li>
+        <li><strong>BUILDER</strong> มีจินตนาการเพ้อฝัน ความสามารถในการสร้างสรรค์จินตนาการของคุณให้เป็นจริง</li>
+        <li><strong>CAMERAMAN</strong> ถ่ายงานต่าง ๆ รู้มุมกล้อง หันซ้ายไม่สวยเลยน้อง หันขวาดีกว่า</li>
+        <li><strong>ANIMATOR</strong> ความสามารถในการใช้ BBS mod, Mine Imator หรือ Blender</li>
+        <li>และด้านอื่น ๆ ที่คุณอยากเสนอเรา!</li>
+      </ul>
+    </section>
+
+    <label class="tr-ack">
+      <input type="checkbox" id="tr-accept" onchange="trToggleSubmit()">
+      <span>รับทราบทั้งหมดและยอมรับแล้ว</span>
+    </label>
+
+    <section class="tr-section">
+      <h2 class="tr-subtitle">กรอกข้อมูล</h2>
+      <p class="tr-form-note">ข้อมูลทั้งหมดจะถูกเก็บเป็นความลับ</p>
+
+      <label class="tr-field">
+        <span class="tr-field-label">ให้เราเรียกคุณว่าอะไรดี</span>
+        <input type="text" id="tr-nickname">
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">อายุ</span>
+        <input type="text" id="tr-age" placeholder="เขียนอายุได้เลย">
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">ชื่อช่อง YouTube</span>
+        <input type="text" id="tr-youtube" placeholder="https://www.youtube.com/@your-channel">
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">Discord</span>
+        <input type="text" id="tr-discord" placeholder="@username หรือ username#1234">
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">โรคประจำตัว</span>
+        <input type="text" id="tr-illness">
+        <span class="tr-field-note">เพื่อศึกษาตัวตนและปรับตัวเข้าหากันได้ดี</span>
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">สเปคคอมพิวเตอร์</span>
+        <input type="text" id="tr-pc" placeholder="CPU, GPU, RAM, OS">
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">ความสามารถพิเศษ</span>
+        <input type="text" id="tr-skill">
+        <span class="tr-field-note">สมัครตำแหน่งอะไรคะ ได้มากกว่า 1 นะ</span>
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">แนะนำตัวเอง</span>
+        <textarea id="tr-intro" rows="8"></textarea>
+        <span class="tr-field-note">ชื่อ อายุ นิสัย คิดว่าตัวเองเป็นคนยังไง เล่าเลย 10 บรรทัดอ่านได้</span>
+      </label>
+
+      <label class="tr-field">
+        <span class="tr-field-label">ไฟล์ที่ต้องการพรีเซนต์</span>
+        <input type="file" id="tr-file" multiple>
+      </label>
+
+      <button class="tr-submit" id="tr-submit" disabled onclick="submitTeamRegister()">ส่งใบสมัคร</button>
+
+      <div class="tr-success" id="tr-success">
+        <div class="tr-success-check">✓</div>
+        <div><strong>ขอบคุณที่สมัครเข้าร่วมทีม!</strong></div>
+        <div style="margin-top:6px;">เราจะติดต่อกลับไปทาง Discord ที่คุณกรอกไว้เร็ว ๆ นี้</div>
+      </div>
+    </section>
   </div>
   <div class="spacer"></div>
 </div>
@@ -2053,15 +2452,15 @@ const TEAM = [
   { name:'Fiatake',           thai:'เฟีย',       char:'',                    yt:'https://www.youtube.com/@Fiatake1311',                                    img:'profile/fiatake.gif' },
   { name:'je jeeja',          thai:'จีจ้า',      char:'Lievan (ลี-แวน)',     yt:'https://www.youtube.com/@je_jeeja',                                       img:'profile/Jejeeja.png' },
   { name:'kawaimecute',       thai:'คาวาย',      char:'บีบี',       yt:'https://www.youtube.com/@Kawaime1191',                                    img:'profile/kawaimecute.png' },
-  { name:'Kyo Ya Kun Ch',     thai:'เคียวยะคุง', char:'ลูน',   yt:'https://www.youtube.com/channel/UCooSuXw2VZedO90XGtEAg9w',                img:'CARD/13card XIII.png' },
+  { name:'Kyo Ya Kun Ch',     thai:'เคียวยะคุง', char:'ลูน',   yt:'https://www.youtube.com/channel/UCooSuXw2VZedO90XGtEAg9w',                img:'profile/Kyoya.png' },
   { name:'Leviaz Ch.【DPX】', thai:'เลเวียซ',    char:'โนวิค',      yt:'https://www.youtube.com/@LeviazCh',                                       img:'profile/leviez.jpg' },
   { name:'LUNGTAY',           thai:'ลุงเตย์',    char:'ลาวินเนียร์',         yt:'https://www.youtube.com/channel/UCm2sJNo1vFkW7bXjXYWGC9A',                img:'profile/lungtay02.jpg' },
   { name:'LuZQuLa._',         thai:'ลัสคิวลาร์', char:'ไฮยาซีน',             yt:'https://www.youtube.com/@luzqula._6654',                                  img:'profile/LuZQula_..png' },
-  { name:'M3ng_Zh1',          thai:'เหมงชี่',    char:'โพลโว่',      yt:'https://www.youtube.com/channel/UCLrVByHOftcetdocaFL0LgQ',                img:'CARD/0card 0.png' },
+  { name:'M3ng_Zh1',          thai:'เหมงชี่',    char:'โพลโว่',      yt:'https://www.youtube.com/channel/UCLrVByHOftcetdocaFL0LgQ',                img:'profile/M3NGZH1.png' },
   { name:'Oryza',             thai:'ทอย',        char:'',                    yt:'https://www.youtube.com/channel/UC4pByjXGFdMz2_WA1mS4b0Q',                img:'profile/toy-01.png' },
   { name:'Schwarz',           thai:'ชวาตซ์',     char:'มอเรี่ยน',            yt:'https://www.youtube.com/@SchwarzX2',                                      img:'profile/schwarz-01.png' },
   { name:'SeRaEl',            thai:'เซราเอล',    char:'แคลริสซา',            yt:'https://www.youtube.com/@SaBlE5110',                                      img:'profile/SeRaEl.png' },
-  { name:'กล้วยเอง',          thai:'ไอกล้วย',    char:'โซระ',      yt:'https://www.youtube.com/@Kluayeng',                                       img:'CARD/20card XX.png' },
+  { name:'กล้วยเอง',          thai:'ไอกล้วย',    char:'โซระ',      yt:'https://www.youtube.com/@Kluayeng',                                       img:'profile/Kluayeng.png' },
 ];
 
 const NEWS = {
@@ -2396,6 +2795,66 @@ function closeTrackModal() {
 }
 function trackModalBgClick(e) {
   if (e.target === document.getElementById('track-modal')) closeTrackModal();
+}
+
+/* ─────────────────────
+   TEAM REGISTER
+   Submissions POST to a Google Apps Script Web App that appends to a Sheet.
+   Paste the deployed Web App URL into TEAM_REGISTER_ENDPOINT below.
+───────────────────── */
+const TEAM_REGISTER_ENDPOINT = ''; // ← paste your Apps Script /exec URL here
+
+function trToggleSubmit() {
+  const ok = document.getElementById('tr-accept').checked;
+  document.getElementById('tr-submit').disabled = !ok;
+}
+
+function submitTeamRegister() {
+  if (!document.getElementById('tr-accept').checked) return;
+  const submitBtn = document.getElementById('tr-submit');
+  const get = id => document.getElementById(id).value.trim();
+  const data = {
+    submittedAt: new Date().toISOString(),
+    nickname: get('tr-nickname'),
+    age:      get('tr-age'),
+    youtube:  get('tr-youtube'),
+    discord:  get('tr-discord'),
+    illness:  get('tr-illness'),
+    pc:       get('tr-pc'),
+    skill:    get('tr-skill'),
+    intro:    get('tr-intro'),
+    files:    [...(document.getElementById('tr-file').files || [])].map(f => f.name).join(', ')
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'กำลังส่ง...';
+
+  const finish = () => {
+    document.getElementById('tr-success').classList.add('show');
+    submitBtn.style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('tr-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 60);
+  };
+
+  if (!TEAM_REGISTER_ENDPOINT) {
+    // No endpoint configured yet — log to console and show success UI.
+    console.log('[Team Register] submission (endpoint not set):', data);
+    finish();
+    return;
+  }
+
+  // Apps Script Web App doesn't speak CORS — use no-cors + text/plain so the
+  // browser doesn't send a preflight. The response can't be read but the
+  // doPost handler on the Apps Script side will still receive the body.
+  fetch(TEAM_REGISTER_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(data)
+  })
+    .catch(err => console.error('[Team Register] submit failed:', err))
+    .finally(finish);
 }
 
 /* ─────────────────────
