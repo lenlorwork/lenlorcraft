@@ -1586,31 +1586,26 @@ body {
   color: var(--muted);
   margin-top: 6px;
 }
-.tr-field input[type="file"] {
-  display: block;
-  width: 100%;
-  font-family: var(--TH);
-  color: var(--cream);
-  font-size: 12px;
-  padding: 8px 0;
-  border: 1px dashed var(--border);
-  background: var(--dark);
-  padding: 10px 12px;
-  cursor: pointer;
-}
-.tr-field input[type="file"]::-webkit-file-upload-button {
+.tr-email-notice {
   background: var(--orange);
   color: var(--dark);
-  border: none;
-  font-family: var(--EN);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  margin-right: 12px;
-  cursor: pointer;
+  padding: 16px 20px;
+  margin: 8px 0 20px;
+  font-family: var(--TH);
+  font-size: 15px;
+  line-height: 1.6;
 }
+.tr-email-notice strong {
+  font-weight: 700;
+  margin-right: 4px;
+}
+.tr-email-notice a {
+  color: var(--dark);
+  font-weight: 700;
+  text-decoration: underline;
+  word-break: break-word;
+}
+.tr-email-notice a:hover { opacity: .7; }
 
 .tr-submit {
   display: block;
@@ -2249,10 +2244,10 @@ body {
         <span class="tr-field-note">ชื่อ อายุ นิสัย คิดว่าตัวเองเป็นคนยังไง เล่าเลย 10 บรรทัดอ่านได้</span>
       </label>
 
-      <label class="tr-field">
-        <span class="tr-field-label">ไฟล์ที่ต้องการพรีเซนต์</span>
-        <input type="file" id="tr-file" multiple>
-      </label>
+      <div class="tr-email-notice">
+        <strong>หากต้องการส่งไฟล์นำเสนอตัวเอง</strong> สามารถส่งมาได้ที่
+        <a href="mailto:lenlor.work@gmail.com">lenlor.work@gmail.com</a>
+      </div>
 
       <button class="tr-submit" id="tr-submit" disabled onclick="submitTeamRegister()">ส่งใบสมัคร</button>
 
@@ -2934,57 +2929,13 @@ function trToggleSubmit() {
   document.getElementById('tr-submit').disabled = !ok;
 }
 
-// File limits: 10 MB per file, 5 files max — keeps payload under Apps Script's request size cap.
-const TR_MAX_FILE_BYTES = 10 * 1024 * 1024;
-const TR_MAX_FILES      = 5;
-
-function readFileAsBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result || '';
-      const base64 = String(result).split(',')[1] || '';
-      resolve({ name: file.name, type: file.type || 'application/octet-stream', data: base64 });
-    };
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
-}
-
-async function submitTeamRegister() {
+function submitTeamRegister() {
   if (!document.getElementById('tr-accept').checked) return;
   const submitBtn = document.getElementById('tr-submit');
   const get = id => document.getElementById(id).value.trim();
 
   submitBtn.disabled = true;
   submitBtn.textContent = 'กำลังส่ง...';
-
-  // Collect + validate files
-  const rawFiles = [...(document.getElementById('tr-file').files || [])];
-  if (rawFiles.length > TR_MAX_FILES) {
-    alert(`อัปโหลดได้สูงสุด ${TR_MAX_FILES} ไฟล์`);
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'ส่งใบสมัคร';
-    return;
-  }
-  const tooBig = rawFiles.find(f => f.size > TR_MAX_FILE_BYTES);
-  if (tooBig) {
-    alert(`ไฟล์ "${tooBig.name}" ใหญ่เกิน 10 MB — ลองย่อหรือลบออกก่อนนะ`);
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'ส่งใบสมัคร';
-    return;
-  }
-
-  let filesB64 = [];
-  try {
-    filesB64 = await Promise.all(rawFiles.map(readFileAsBase64));
-  } catch (err) {
-    console.error('[Team Register] file read failed:', err);
-    alert('อ่านไฟล์แนบไม่ได้ ลองอีกครั้งหรือลบไฟล์ที่มีปัญหาออก');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'ส่งใบสมัคร';
-    return;
-  }
 
   const data = {
     submittedAt: new Date().toISOString(),
@@ -2996,7 +2947,7 @@ async function submitTeamRegister() {
     pc:       get('tr-pc'),
     skill:    get('tr-skill'),
     intro:    get('tr-intro'),
-    files:    filesB64
+    files:    ''
   };
 
   const finish = () => {
