@@ -2755,6 +2755,12 @@ function openProject(id, noScroll) {
   const expand = document.getElementById('proj-expand');
   const inner  = expand.querySelector('.proj-expand-inner');
 
+  // Projects without characters don't expand a character-card dropdown.
+  if (!proj.chars || proj.chars.length === 0) {
+    closeProject();
+    return;
+  }
+
   // Clicking the currently-open project toggles it closed (skip on init).
   if (!noScroll && activeProject && activeProject.id === proj.id && expand.classList.contains('open')) {
     closeProject();
