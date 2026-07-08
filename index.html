@@ -1655,6 +1655,73 @@ body {
   margin-bottom: 12px;
 }
 
+/* Registration closed notice */
+.tr-closed { text-align: center; }
+.tr-closed-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: var(--dark);
+  font-family: var(--TH);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding: 7px 18px;
+  margin-bottom: 18px;
+}
+.tr-closed-title {
+  font-family: var(--TH);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.tr-closed-text {
+  font-family: var(--TH);
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.tr-closed-steps {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+.tr-closed-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--dark);
+  border: 1px solid var(--border);
+}
+.tr-closed-step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--orange);
+  color: var(--dark);
+  font-family: var(--EN);
+  font-size: 14px;
+  font-weight: 700;
+}
+.tr-closed-step > div { display: flex; flex-direction: column; gap: 4px; }
+.tr-closed-step strong {
+  font-family: var(--TH);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--orange);
+}
+.tr-closed-step span {
+  font-family: var(--TH);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cream);
+}
+
 /* Mobile tweaks for register page */
 @media (max-width: 720px) {
   .tr-inner { padding: 20px 14px 60px; }
@@ -2192,69 +2259,26 @@ body {
       </div>
     </section>
 
-    <label class="tr-ack">
-      <input type="checkbox" id="tr-accept" onchange="trToggleSubmit()">
-      <span>รับทราบทั้งหมดและยอมรับแล้ว</span>
-    </label>
+    <section class="tr-section tr-closed">
+      <div class="tr-closed-badge">ปิดรับสมัครแล้ว</div>
+      <h2 class="tr-closed-title">ขอบคุณทุกคนที่สมัครเข้าร่วมทีม 🧡</h2>
+      <p class="tr-closed-text">ขณะนี้ทีมงานได้ปิดรับใบสมัครเป็นที่เรียบร้อยแล้ว</p>
 
-    <section class="tr-section">
-      <h2 class="tr-subtitle">กรอกข้อมูล</h2>
-      <p class="tr-form-note">ข้อมูลทั้งหมดจะถูกเก็บเป็นความลับ</p>
-
-      <label class="tr-field">
-        <span class="tr-field-label">ให้เราเรียกคุณว่าอะไรดี</span>
-        <input type="text" id="tr-nickname">
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">อายุ</span>
-        <input type="text" id="tr-age" placeholder="เขียนอายุได้เลย">
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">ชื่อช่อง YouTube</span>
-        <input type="text" id="tr-youtube" placeholder="https://www.youtube.com/@your-channel">
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">Discord</span>
-        <input type="text" id="tr-discord" placeholder="@username หรือ username#1234">
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">โรคประจำตัว</span>
-        <input type="text" id="tr-illness">
-        <span class="tr-field-note">เพื่อศึกษาตัวตนและปรับตัวเข้าหากันได้ดี</span>
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">สเปคคอมพิวเตอร์</span>
-        <input type="text" id="tr-pc" placeholder="CPU, GPU, RAM, OS">
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">ความสามารถพิเศษ</span>
-        <input type="text" id="tr-skill">
-        <span class="tr-field-note">สมัครตำแหน่งอะไรคะ ได้มากกว่า 1 นะ</span>
-      </label>
-
-      <label class="tr-field">
-        <span class="tr-field-label">แนะนำตัวเอง</span>
-        <textarea id="tr-intro" rows="8"></textarea>
-        <span class="tr-field-note">ชื่อ อายุ นิสัย คิดว่าตัวเองเป็นคนยังไง เล่าเลย 10 บรรทัดอ่านได้</span>
-      </label>
-
-      <div class="tr-email-notice">
-        <strong>หากต้องการส่งไฟล์นำเสนอตัวเอง</strong> สามารถส่งมาได้ที่
-        <a href="mailto:lenlor.work@gmail.com">lenlor.work@gmail.com</a>
-      </div>
-
-      <button class="tr-submit" id="tr-submit" disabled onclick="submitTeamRegister()">ส่งใบสมัคร</button>
-
-      <div class="tr-success" id="tr-success">
-        <div class="tr-success-check">✓</div>
-        <div><strong>ขอบคุณที่สมัครเข้าร่วมทีม!</strong></div>
-        <div style="margin-top:6px;">เราจะติดต่อกลับไปทาง Discord ที่คุณกรอกไว้เร็ว ๆ นี้</div>
+      <div class="tr-closed-steps">
+        <div class="tr-closed-step">
+          <span class="tr-closed-step-num">1</span>
+          <div>
+            <strong>ประกาศผลผู้มีสิทธิ์สัมภาษณ์</strong>
+            <span>รายชื่อผู้มีสิทธิ์เข้าสัมภาษณ์จะถูกประกาศผ่านหน้านี้ กรุณากลับมาตรวจสอบอีกครั้ง</span>
+          </div>
+        </div>
+        <div class="tr-closed-step">
+          <span class="tr-closed-step-num">2</span>
+          <div>
+            <strong>ตรวจสอบ DM ใน Discord</strong>
+            <span>โปรดตรวจสอบข้อความส่วนตัว (DM) ใน Discord เพื่อรับช่องทางการสัมภาษณ์</span>
+          </div>
+        </div>
       </div>
     </section>
   </div>
