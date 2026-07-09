@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENLORCRAFT | สมัครเข้าทีม</title>
+
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;900&family=Bai+Jamjuree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-mount"></div>
+<script>
+fetch('header.html').then(r => r.text()).then(html => {
+  document.getElementById('header-mount').outerHTML = html;
+});
+</script>
+
+<div id="page-teamregister">
+  <div class="tr-inner">
+    <button class="back-btn" style="margin:0 0 8px;" onclick="goHome()">← Back</button>
+    <img class="tr-logo" src="logo_lenlor_t.webp" alt="LENLOR">
+
+    <section class="tr-section tr-closed">
+      <div class="tr-closed-badge">ประกาศผล</div>
+      <h2 class="tr-closed-title">ขอบคุณทุกท่านที่ให้ความสนใจในการร่วมงานกับทีมเล่นรอคราฟ</h2>
+      <p class="tr-closed-text">ทางเราขอประกาศรายชื่อผู้มีสิทธิ์เข้าสัมภาษณ์ ดังนี้</p>
+
+      <ul class="tr-announce-list">
+        <li>คุณชาร์ค (kunshark)</li>
+        <li>คุณชารอน (SharonVVT)</li>
+        <li>คุณพิมมี่ (PML.)</li>
+        <li>คุณเรวา (Reva Regalia『AST』)</li>
+        <li>คุณมิกค์ (Tokaew)</li>
+        <li>คุณเดล (Fidelma)</li>
+        <li>คุณสกาย (8lueSky)</li>
+        <li>คุณบลู (Blue Pepper CH.)</li>
+        <li>คุณรินจา (Rin)</li>
+        <li>คุณช็อกมิ้น (Mintxhock)</li>
+        <li>คุณข้าวผัด 000000 (SaltFriedRice)</li>
+        <li>คุณนันนี่ (Nunni LuckyTime)</li>
+        <li>คุณยาดม (Yadom DekRuen)</li>
+        <li>คุณเซน</li>
+        <li>คุณฟิน (.finwhale)</li>
+        <li>คุณรีแล็กซ์ (LeRaxs)</li>
+        <li>คุณ beammqt (beammqt)</li>
+        <li>คุณไอริส (Maamoon)</li>
+      </ul>
+
+      <div class="proj-divider tr-announce-divider">
+        <div class="proj-divider-line"></div>
+        <div class="proj-divider-gem">✦ ✦ ✦</div>
+        <div class="proj-divider-line r"></div>
+      </div>
+
+      <p class="tr-announce-body">ผู้มีรายชื่อข้างต้นทุกท่านรบกวนเช็กกล่องข้อความ (DM) ในช่องทาง Discord เพื่อเข้าสู่ขั้นตอนการสัมภาษณ์ต่อไป หากเข้า Discord มาแล้วจะถือว่าตอบตกลงเข้าร่วมสัมภาษณ์แล้วในทุกกรณี</p>
+      <p class="tr-announce-date">กำหนดการสัมภาษณ์ วันที่ 13 กรกฎาคม เวลา 19.30 น. เป็นต้นไป</p>
+
+      <div class="proj-divider tr-announce-divider">
+        <div class="proj-divider-line"></div>
+        <div class="proj-divider-gem">✦ ✦ ✦</div>
+        <div class="proj-divider-line r"></div>
+      </div>
+
+      <p class="tr-announce-body">ทุกคนที่สมัครมาล้วนมีเรื่องราวและความสามารถที่น่าประทับใจอย่างมาก แต่เนื่องด้วยทางทีมงานได้พิจารณาเลือกผู้สมัครที่มีคุณสมบัติสอดคล้องกับความต้องการเฉพาะของทีมในขณะนี้ ทางเราจึงต้องขออภัยที่ยังไม่สามารถตอบรับคำขอของทุกท่านได้ครบทุกคน</p>
+      <p class="tr-announce-body">ขอขอบคุณในความทุ่มเทของทุกคน และหวังเป็นอย่างยิ่งว่าจะมีโอกาสได้ร่วมงานกับทุก ๆ คนในอนาคต และมีความสุขกับเกม Minecraft ได้ต่อ ๆ ไปค่ะ</p>
+
+      <p class="tr-announce-sign">Alvina Ch</p>
+    </section>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<div id="music-player">
+  <button class="mp-close" onclick="hidePlayer()" aria-label="close">✕</button>
+  <div class="mp-label">Now Playing</div>
+  <div class="mp-title" id="mp-title">—</div>
+  <div class="mp-artist">LENLORCRAFT</div>
+  <div class="mp-controls">
+    <button class="mp-btn" onclick="prevTrack()" aria-label="previous track" title="Previous">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg>
+    </button>
+    <button class="mp-btn mp-btn-play pulse" id="mp-play" onclick="togglePlay()" aria-label="play/pause" title="Play / Pause">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="mp-btn" onclick="nextTrack()" aria-label="next track" title="Next">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+    </button>
+  </div>
+  <div class="mp-volume">
+    <span class="mp-vol-icon" id="mp-vol-icon" onclick="toggleMute()" title="Mute / Unmute">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    </span>
+    <input class="mp-vol-slider" id="mp-vol-slider" type="range" min="0" max="100" value="50" aria-label="volume">
+    <span class="mp-vol-value" id="mp-vol-value">50</span>
+  </div>
+  <audio id="mp-audio" preload="metadata"></audio>
+</div>
+
+<div id="now-on-air">
+  <div class="air-label">
+    <img class="air-thumb" id="air-thumb" src="CARD/4card IV.webp" alt="" onerror="this.style.display='none'">
+    <div class="air-text"><span class="air-text-prefix">NOW ON AIR &nbsp;|&nbsp; </span><em id="air-name">LUSTORIA HOTEL</em></div>
+  </div>
+  <div class="air-tabs" id="air-tabs"></div>
+</div>
+
+<script src="script.js"></script>
+<script>
+/* ─────────────────────
+   TEAM REGISTER
+   Submissions POST to a Google Apps Script Web App that appends to a Sheet.
+───────────────────── */
+const TEAM_REGISTER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzZ4e-LzjakPURqVRk7BPLABCCUiWbORggwzMOtDxUYFkG4shXrSnHwAWHaq9dLGzKa/exec';
+
+function trToggleSubmit() {
+  const ok = document.getElementById('tr-accept').checked;
+  document.getElementById('tr-submit').disabled = !ok;
+}
+
+function submitTeamRegister() {
+  if (!document.getElementById('tr-accept').checked) return;
+  const submitBtn = document.getElementById('tr-submit');
+  const get = id => document.getElementById(id).value.trim();
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'กำลังส่ง...';
+
+  const data = {
+    submittedAt: new Date().toISOString(),
+    nickname: get('tr-nickname'),
+    age:      get('tr-age'),
+    youtube:  get('tr-youtube'),
+    discord:  get('tr-discord'),
+    illness:  get('tr-illness'),
+    pc:       get('tr-pc'),
+    skill:    get('tr-skill'),
+    intro:    get('tr-intro'),
+    files:    ''
+  };
+
+  const finish = () => {
+    document.getElementById('tr-success').classList.add('show');
+    submitBtn.style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('tr-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 60);
+  };
+
+  if (!TEAM_REGISTER_ENDPOINT) {
+    console.log('[Team Register] submission (endpoint not set):', data);
+    finish();
+    return;
+  }
+
+  // Apps Script Web App doesn't speak CORS — use no-cors + text/plain so the
+  // browser doesn't send a preflight. Response can't be read but the
+  // doPost handler on the Apps Script side will still receive the body.
+  fetch(TEAM_REGISTER_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(data)
+  })
+    .catch(err => console.error('[Team Register] submit failed:', err))
+    .finally(finish);
+}
+</script>
+</body>
+</html>

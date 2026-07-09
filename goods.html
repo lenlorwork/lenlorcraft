@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LENLORCRAFT | Goods</title>
+
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;900&family=Bai+Jamjuree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-mount"></div>
+<script>
+fetch('header.html').then(r => r.text()).then(html => {
+  document.getElementById('header-mount').outerHTML = html;
+});
+</script>
+
+<div id="page-goods">
+  <div class="goods-box">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="goods-badge">Coming Soon</div>
+    <h1 class="goods-title">สินค้าที่ระลึกกำลังจะมา</h1>
+    <p class="goods-text">ทางทีมกำลังเตรียมสินค้าที่ระลึกของ LENLORCRAFT ไว้ให้ทุกคน ติดตามข่าวสารได้ทาง Discord และ YouTube ของเรา</p>
+  </div>
+</div>
+
+<div id="music-player">
+  <button class="mp-close" onclick="hidePlayer()" aria-label="close">✕</button>
+  <div class="mp-label">Now Playing</div>
+  <div class="mp-title" id="mp-title">—</div>
+  <div class="mp-artist">LENLORCRAFT</div>
+  <div class="mp-controls">
+    <button class="mp-btn" onclick="prevTrack()" aria-label="previous track" title="Previous">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg>
+    </button>
+    <button class="mp-btn mp-btn-play pulse" id="mp-play" onclick="togglePlay()" aria-label="play/pause" title="Play / Pause">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="mp-btn" onclick="nextTrack()" aria-label="next track" title="Next">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+    </button>
+  </div>
+  <div class="mp-volume">
+    <span class="mp-vol-icon" id="mp-vol-icon" onclick="toggleMute()" title="Mute / Unmute">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    </span>
+    <input class="mp-vol-slider" id="mp-vol-slider" type="range" min="0" max="100" value="50" aria-label="volume">
+    <span class="mp-vol-value" id="mp-vol-value">50</span>
+  </div>
+  <audio id="mp-audio" preload="metadata"></audio>
+</div>
+
+<div id="now-on-air">
+  <div class="air-label">
+    <img class="air-thumb" id="air-thumb" src="CARD/4card IV.webp" alt="" onerror="this.style.display='none'">
+    <div class="air-text"><span class="air-text-prefix">NOW ON AIR &nbsp;|&nbsp; </span><em id="air-name">LUSTORIA HOTEL</em></div>
+  </div>
+  <div class="air-tabs" id="air-tabs"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
